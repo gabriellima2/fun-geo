@@ -1,0 +1,23 @@
+@import "./scss/main";
+
+body {
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+	color: $font-color;
+	font-family: $main-font-family;
+	background: $background-color;
+}
+
+li {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+}
+
+button, a, input {
+	font-family: $main-font-family;
+	color: $font-color;
+}
