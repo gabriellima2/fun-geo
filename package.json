@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "phosphor-vue": "^4.4.1",
     "vue": "^3.2.45",
     "vue-router": "^4.1.6"
   },
