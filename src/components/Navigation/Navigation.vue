@@ -1,27 +1,33 @@
 <script lang="ts" setup>
-	import { ref } from "vue";
+	import { useWindowSizes } from "../../composables/useWindowSizes";
+	import { useNavigation } from "./composables/useNavigation";
 
 	import NavigationButton from "./NavigationButton.vue";
 	import NavigationLink from "./NavigationLink.vue";
+	import Overlay from "../Overlay.vue";
 
-	const isOpen = ref(false);
+	const windowSizes = useWindowSizes();
+	const {
+		isOpen,
+		handleKeyDown,
+		handleToggleNavigation,
+		handleDisableNavigation,
+	} = useNavigation({
+		rootElementID: "#navigation-menu",
+	});
 
-	function handleClickOnNavigationButton() {
-		isOpen.value = !isOpen.value;
+	function handleKeydownOnlyMobile(e: KeyboardEvent) {
+		if (windowSizes.width < 768) return handleKeyDown(e);
 	}
 </script>
 
 <template>
 	<div>
-		<div
-			class="overlay"
-			v-if="isOpen"
-			@click="handleClickOnNavigationButton"
-		></div>
-		<div>
+		<Overlay v-if="isOpen" @click="handleDisableNavigation" />
+		<div id="navigation-menu" @keydown="handleKeydownOnlyMobile">
 			<NavigationButton
 				:is-open="isOpen"
-				:handle-click="handleClickOnNavigationButton"
+				:handle-click="handleToggleNavigation"
 				class="navigation-mobile-button"
 			/>
 
@@ -44,7 +50,7 @@
 		padding-top: 40px;
 		padding-bottom: 20px;
 		backdrop-filter: blur(4px);
-		background-color: #141414f3;
+		background-color: #141414d3;
 	}
 	.navigation--open {
 		display: block;
@@ -66,14 +72,6 @@
 		transform: translateY(-50%);
 		z-index: 200;
 	}
-	.overlay {
-		position: absolute;
-		width: 100vw;
-		height: 100vh;
-		left: 0;
-		top: 0;
-		background-color: #000000ab;
-	}
 
 	@media screen and (min-width: $md-screen) {
 		.navigation {
@@ -81,8 +79,6 @@
 			background: none;
 			padding-top: 0px;
 			padding-bottom: 0px;
-		}
-		.navigation--open {
 			position: static;
 		}
 		.navigation-mobile-button {
@@ -92,9 +88,6 @@
 			flex-direction: row;
 			align-items: center;
 			gap: 32px;
-		}
-		.overlay {
-			display: none;
 		}
 	}
 </style>
