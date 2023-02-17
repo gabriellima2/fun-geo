@@ -4,14 +4,12 @@
 </script>
 
 <template>
-	<div>
-		<TheHeader />
-		<main class="main-content">
-			<TheContainer>
-				<slot></slot>
-			</TheContainer>
-		</main>
-	</div>
+	<TheHeader />
+	<main class="main-content">
+		<TheContainer>
+			<slot></slot>
+		</TheContainer>
+	</main>
 </template>
 
 <style lang="scss" scoped>

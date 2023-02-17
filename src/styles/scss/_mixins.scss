@@ -10,10 +10,6 @@
 
 @mixin default-spacings() {
 	padding: 12px 16px;
-
-	@media screen and (min-width: $md-screen) {
-		padding: 20px 44px;
-	}
 }
 
 @mixin field-default-styles() {

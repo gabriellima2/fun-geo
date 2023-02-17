@@ -19,7 +19,6 @@
 		@include center(row);
 	}
 	.header-content {
-		@include default-spacings();
 		width: 100%;
 		display: flex;
 		flex-direction: row;
