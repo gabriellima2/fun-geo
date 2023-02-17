@@ -28,7 +28,7 @@
 			<NavigationButton
 				:is-open="isOpen"
 				:handle-click="handleToggleNavigation"
-				class="navigation-mobile-button"
+				class="mobile-navigation-button"
 			/>
 
 			<nav :class="isOpen ? 'navigation navigation--open' : 'navigation'">
@@ -65,7 +65,7 @@
 		gap: 28px;
 		padding-left: 0px;
 	}
-	.navigation-mobile-button {
+	.mobile-navigation-button {
 		position: absolute;
 		right: 4px;
 		top: 50%;
@@ -81,7 +81,7 @@
 			padding-bottom: 0px;
 			position: static;
 		}
-		.navigation-mobile-button {
+		.mobile-navigation-button {
 			display: none;
 		}
 		.navigation-list {
