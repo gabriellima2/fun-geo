@@ -1,20 +1,25 @@
 <script setup lang="ts">
+	import { ref } from "vue";
 	import { PhMagnifyingGlass } from "phosphor-vue";
+
 	import BaseInput from "./BaseInput.vue";
 
 	type SearchBarProps = {
-		modelValue: string;
+		handleChange: (value: string) => void;
 	};
 
 	const props = defineProps<SearchBarProps>();
+	const searchValue = ref("");
 </script>
 
 <template>
 	<div class="search-bar">
 		<label>
 			<BaseInput
-				:model-value="props.modelValue"
+				v-bind="$attrs"
+				v-model="searchValue"
 				placeholder="Digite o nome do país..."
+				@change="() => props.handleChange(searchValue)"
 			/>
 		</label>
 		<i class="search-bar__icon"
