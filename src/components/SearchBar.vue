@@ -32,11 +32,10 @@
 	@import "../styles/scss/main";
 	.search-bar {
 		@include center(row);
+		@include field-default-styles();
 		justify-content: space-between;
 		gap: 16px;
-		padding-right: 12px;
-		border-radius: 8px;
-		background-color: $util-color-900;
+		padding: 0px 12px 0px 0px;
 	}
 	.search-bar__icon {
 		@include center(row);

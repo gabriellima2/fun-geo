@@ -28,12 +28,7 @@
 	@import "../styles/scss/main";
 
 	.base-input {
-		border-radius: 8px;
-		border: none;
-		outline: none;
-		padding: 12px;
-		font-size: 0.9rem;
-		background-color: $util-color-900;
+		@include field-default-styles();
 
 		&::placeholder {
 			color: $util-color-300;

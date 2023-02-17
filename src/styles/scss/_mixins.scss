@@ -15,3 +15,14 @@
 		padding: 20px 44px;
 	}
 }
+
+@mixin field-default-styles() {
+	border-radius: 8px;
+	border: none;
+	outline: none;
+	padding: 12px;
+	font-size: 0.9rem;
+	color: $font-color;
+	font-family: $main-font-family;
+	background-color: $util-color-900;
+}
