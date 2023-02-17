@@ -6,7 +6,7 @@
 
 	type BaseSelectProps = {
 		options: OptionProps[];
-		modelValue: string;
+		label: string;
 	};
 
 	type BaseSelectEmits = {
@@ -22,13 +22,14 @@
 		<select
 			v-bind="$attrs"
 			class="base-select"
-			:value="props.modelValue"
+			:title="props.label"
 			@change="
 				emits('update:modelValue', ($event.target as HTMLInputElement).value)
 			"
 		>
+			<option selected disabled value="none">{{ props.label }}</option>
 			<option
-				v-for="option in options"
+				v-for="option in props.options"
 				:key="option.value"
 				:value="option.value"
 			>
@@ -50,7 +51,8 @@
 		appearance: none !important;
 
 		border: none;
-		width: 100%;
+		width: fit-content;
+		padding-right: 36px;
 
 		/* Add new arrow */
 		background-image: url('data:image/svg+xml;utf8,<svg width="16" height="16" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 10.127L12 18.127L20 10.127H4Z" fill="%23f4f4f4"/></svg>');
