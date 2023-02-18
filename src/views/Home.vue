@@ -1,8 +1,15 @@
 <script lang="ts" setup>
+	import CountryList from "../components/CountryList/CountryList.vue";
 	import FilterByContinent from "../components/FilterByContinent.vue";
 	import SearchBar from "../components/SearchBar.vue";
+	import { CountryDTO } from "../dtos/country-dtos/country-dto";
 
 	import DefaultLayout from "../layouts/DefaultLayout.vue";
+	import { countryService } from "../services/country-service";
+
+	function getCountries() {
+		return countryService.getAll<CountryDTO[]>();
+	}
 </script>
 
 <template>
@@ -13,7 +20,9 @@
 				<SearchBar :handleChange="(v) => {}" />
 				<FilterByContinent :handleChange="(v) => {}" />
 			</section>
-			<article class="countries"></article>
+			<section class="countries">
+				<CountryList :service="getCountries" />
+			</section>
 		</div>
 	</DefaultLayout>
 </template>
