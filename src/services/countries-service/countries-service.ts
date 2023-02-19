@@ -1,6 +1,6 @@
 const BASE_URL = "https://restcountries.com/v3.1/";
 
-export const countryService = {
+export const countriesService = {
 	getAll: async <T extends object | []>(fields = "name,flags,region") => {
 		if (!fields) throw new Error("Please, pass valid fields parameters!");
 

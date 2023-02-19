@@ -1,9 +1,9 @@
 <script setup lang="ts">
 	import { useFetch } from "../../composables/useFetch";
 
-	import BaseError from "../BaseError.vue";
+	import CountriesListItem from "./CountriesListItem.vue";
 	import BaseLoading from "../BaseLoading.vue";
-	import CountryListItem from "./CountryListItem.vue";
+	import BaseError from "../BaseError.vue";
 
 	import type { CountryDTO } from "../../dtos/country-dtos/country-dto";
 
@@ -20,7 +20,7 @@
 	<BaseError v-else-if="error" :message="error" />
 	<article v-else-if="data">
 		<ul class="country-list">
-			<CountryListItem
+			<CountriesListItem
 				v-for="country in data"
 				:key="country.name.common"
 				:name="country.name.common"
