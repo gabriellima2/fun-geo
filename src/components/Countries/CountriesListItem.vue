@@ -52,13 +52,11 @@
 	$border-default-style: 1px solid #242424;
 	$border-radius: 8px;
 	.country-list-item {
-		width: 30%;
-		flex-grow: 1;
-		flex-basis: 300px;
+		width: 100%;
+		height: 100%;
 	}
 	.country {
 		width: 100%;
-		height: 96px;
 		display: flex;
 		flex-direction: row;
 
