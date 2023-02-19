@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-	import FilterByContinent from "../../components/FilterByContinent.vue";
-	import SearchBar from "../../components/SearchBar.vue";
+	import FilterByContinent from "@/components/FilterByContinent.vue";
+	import SearchBar from "@/components/SearchBar.vue";
 	import CountriesList from "./CountriesList.vue";
 
-	import { countriesService } from "../../services/countries-service";
-	import type { CountryDTO } from "../../dtos/country-dtos/country-dto";
+	import { countriesService } from "@/services/countries-service";
+	import type { CountryDTO } from "@/dtos/country-dtos/country-dto";
 
 	const getCountries = () => countriesService.getAll<CountryDTO[]>();
 </script>

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-	import { useWindowSizes } from "../../composables/useWindowSizes";
+	import { useWindowSizes } from "@/composables/useWindowSizes";
 	import { useNavigation } from "./composables/useNavigation";
 
 	import NavigationButton from "./NavigationButton.vue";

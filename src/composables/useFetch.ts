@@ -1,4 +1,4 @@
-import { Ref, ref, UnwrapRef } from "vue";
+import { Ref, ref, type UnwrapRef } from "vue";
 
 type UseFetchReturn<TData> = {
 	data: Ref<UnwrapRef<TData> | null>;

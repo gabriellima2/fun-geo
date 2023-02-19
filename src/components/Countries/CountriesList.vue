@@ -1,11 +1,11 @@
 <script setup lang="ts">
-	import { useFetch } from "../../composables/useFetch";
+	import { useFetch } from "@/composables/useFetch";
 
 	import CountriesListItem from "./CountriesListItem.vue";
 	import BaseLoading from "../BaseLoading.vue";
 	import BaseError from "../BaseError.vue";
 
-	import type { CountryDTO } from "../../dtos/country-dtos/country-dto";
+	import type { CountryDTO } from "@/dtos/country-dtos/country-dto";
 
 	type CountryListProps = {
 		service: () => Promise<CountryDTO[]>;

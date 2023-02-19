@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-	import Countries from "../components/Countries/Countries.vue";
-	import DefaultLayout from "../layouts/DefaultLayout.vue";
+	import Countries from "@/components/Countries/Countries.vue";
+	import DefaultLayout from "@/layouts/DefaultLayout.vue";
 </script>
 
 <template>
