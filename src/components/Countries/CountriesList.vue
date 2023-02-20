@@ -1,25 +1,58 @@
 <script setup lang="ts">
+	import { computed } from "vue";
+
+	import { usePagination } from "@/composables/usePagination";
+
 	import CountriesListItem from "./CountriesListItem.vue";
+	import PaginationButton from "../Buttons/PaginationButton.vue";
+
+	import { convertIntoTwoDimensionalArray } from "@/functions/convert-into-two-dimensional-array";
 	import type { CountryDTO } from "@/dtos/country-dtos/country-dto";
 
 	type CountryListProps = {
 		countries: CountryDTO[];
 	};
 
+	const PAGE_LIMIT = 4;
+	const FIRST_PAGE = 1;
+
 	const props = defineProps<CountryListProps>();
+	const { currentPage, itemsPerPage, nextPage, previousPage } = usePagination({
+		data: props.countries,
+		pageLimit: PAGE_LIMIT,
+	});
+
+	const items = computed(() =>
+		convertIntoTwoDimensionalArray<CountryDTO>({
+			array: props.countries,
+			rowsLength: itemsPerPage,
+		})
+	);
 </script>
 
 <template>
 	<article>
 		<ul class="country-list">
 			<CountriesListItem
-				v-for="country in props.countries"
+				v-for="country in items[currentPage - 1]"
 				:key="country.name.common"
 				:name="country.name.common"
 				:flag="{ src: country.flags.png, alt: country.flags.alt }"
 				:region="country.region"
 			/>
 		</ul>
+		<div class="pagination-buttons">
+			<PaginationButton
+				variant="previous"
+				@click="previousPage"
+				:disabled="currentPage === FIRST_PAGE"
+			/>
+			<PaginationButton
+				variant="next"
+				@click="nextPage"
+				:disabled="currentPage === PAGE_LIMIT"
+			/>
+		</div>
 	</article>
 </template>
 
@@ -43,5 +76,12 @@
 		.country-list {
 			grid-template-columns: repeat(3, 1fr);
 		}
+	}
+
+	.pagination-buttons {
+		@include center(row);
+		flex-wrap: wrap;
+		gap: 32px;
+		margin: 44px 0px;
 	}
 </style>
