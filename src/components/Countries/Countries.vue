@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 	import { useFetch } from "@/composables/useFetch";
 
-	import FilterByContinent from "@/components/FilterByContinent.vue";
+	import FilterByRegion from "@/components/FilterByRegion.vue";
 	import SearchBar from "@/components/SearchBar.vue";
 	import CountriesList from "./CountriesList.vue";
 	import BaseLoading from "../BaseLoading.vue";
@@ -19,7 +19,7 @@
 	<div>
 		<section class="filters">
 			<SearchBar @search="(v) => {}" />
-			<FilterByContinent :handleChange="(v) => {}" />
+			<FilterByRegion @filter="(v) => {}" />
 		</section>
 		<BaseLoading v-if="isLoading" />
 		<BaseError v-else-if="error" :message="error" />

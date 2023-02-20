@@ -1,13 +1,13 @@
 <script setup lang="ts">
 	import { ref, watch } from "vue";
-	import BaseSelect, { OptionProps } from "./BaseSelect.vue";
+	import BaseSelect, { type OptionProps } from "./BaseSelect.vue";
 
-	type FilterByContinentProps = {
-		handleChange: (selectedContinent: string) => void;
+	type FilterByRegionEmits = {
+		(e: "filter", selectedValue: string): void;
 	};
 
-	const props = defineProps<FilterByContinentProps>();
-	const selectedContinent = ref("");
+	const emits = defineEmits<FilterByRegionEmits>();
+	const selectedValue = ref("");
 
 	const options: OptionProps[] = [
 		{ text: "Todos", value: "" },
@@ -18,13 +18,13 @@
 		{ text: "Oceania", value: "oceania" },
 	];
 
-	watch(selectedContinent, () => props.handleChange(selectedContinent.value));
+	watch(selectedValue, () => emits("filter", selectedValue.value));
 </script>
 
 <template>
 	<BaseSelect
-		v-model="selectedContinent"
-		label="Filtrar por continente"
+		v-model="selectedValue"
+		label="Filtrar por região"
 		:options="options"
 	/>
 </template>

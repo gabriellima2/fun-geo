@@ -1,13 +1,15 @@
 <script setup lang="ts">
+	import type { SelectHTMLAttributes } from "vue";
+
 	export type OptionProps = {
 		value: string;
 		text: string;
 	};
 
-	type BaseSelectProps = {
+	interface BaseSelectProps extends SelectHTMLAttributes {
 		options: OptionProps[];
 		label: string;
-	};
+	}
 
 	type BaseSelectEmits = {
 		(e: "update:modelValue", value: string): void;
@@ -20,7 +22,7 @@
 <template>
 	<div>
 		<select
-			v-bind="$attrs"
+			v-bind="props"
 			class="base-select"
 			:title="props.label"
 			@change="($event) =>
