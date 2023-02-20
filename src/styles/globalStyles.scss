@@ -6,6 +6,10 @@
 	margin: 0;
 }
 
+html {
+	scroll-behavior: smooth;
+}
+
 body {
 	color: $font-color;
 	font-family: $main-font-family;
