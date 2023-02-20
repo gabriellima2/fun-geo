@@ -19,7 +19,7 @@
 		:value="props.modelValue"
 		class="base-input"
 		@input="
-		$event => emits('update:modelValue', ($event.target as HTMLInputElement).value)
+		($event) => emits('update:modelValue', ($event.target as HTMLInputElement).value)
 		"
 	/>
 </template>

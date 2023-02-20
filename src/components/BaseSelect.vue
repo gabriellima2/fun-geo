@@ -23,7 +23,7 @@
 			v-bind="$attrs"
 			class="base-select"
 			:title="props.label"
-			@change="
+			@change="($event) =>
 				emits('update:modelValue', ($event.target as HTMLInputElement).value)
 			"
 		>
