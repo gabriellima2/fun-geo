@@ -22,7 +22,7 @@
 <template>
 	<div>
 		<select
-			v-bind="props"
+			v-bind="$attrs"
 			class="base-select"
 			:title="props.label"
 			@change="($event) =>
