@@ -1,27 +1,19 @@
 <script setup lang="ts">
-	import { useFetch } from "@/composables/useFetch";
-
 	import CountriesListItem from "./CountriesListItem.vue";
-	import BaseLoading from "../BaseLoading.vue";
-	import BaseError from "../BaseError.vue";
-
 	import type { CountryDTO } from "@/dtos/country-dtos/country-dto";
 
 	type CountryListProps = {
-		service: () => Promise<CountryDTO[]>;
+		countries: CountryDTO[];
 	};
 
 	const props = defineProps<CountryListProps>();
-	const { data, error, isLoading } = useFetch(props.service);
 </script>
 
 <template>
-	<BaseLoading v-if="isLoading" />
-	<BaseError v-else-if="error" :message="error" />
-	<article v-else-if="data">
+	<article>
 		<ul class="country-list">
 			<CountriesListItem
-				v-for="country in data"
+				v-for="country in props.countries"
 				:key="country.name.common"
 				:name="country.name.common"
 				:flag="{ src: country.flags.png, alt: country.flags.alt }"
