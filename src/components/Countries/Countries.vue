@@ -18,7 +18,7 @@
 <template>
 	<div>
 		<section class="filters">
-			<SearchBar :handleChange="(v) => {}" />
+			<SearchBar @search="(v) => {}" />
 			<FilterByContinent :handleChange="(v) => {}" />
 		</section>
 		<BaseLoading v-if="isLoading" />

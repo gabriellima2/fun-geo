@@ -3,13 +3,16 @@
 	import { PhMagnifyingGlass } from "phosphor-vue";
 
 	import BaseInput from "./BaseInput.vue";
+	import BaseButton from "./Buttons/BaseButton.vue";
 
-	type SearchBarProps = {
-		handleChange: (value: string) => void;
+	type SearchBarEmits = {
+		(e: "search", value: string): void;
 	};
 
-	const props = defineProps<SearchBarProps>();
+	const emits = defineEmits<SearchBarEmits>();
 	const searchValue = ref("");
+
+	const emitSearchEvent = () => emits("search", searchValue.value);
 </script>
 
 <template>
@@ -19,12 +22,19 @@
 				v-bind="$attrs"
 				v-model="searchValue"
 				placeholder="Digite o nome do país..."
-				@change="() => props.handleChange(searchValue)"
+				@keydown.enter="emitSearchEvent"
 			/>
 		</label>
-		<i class="search-bar__icon"
-			><PhMagnifyingGlass size="24" color="#a4a4a4"
-		/></i>
+		<BaseButton
+			type="button"
+			title="Pesquisar"
+			class="search-bar__button"
+			@click="emitSearchEvent"
+		>
+			<template #base-button-icon>
+				<PhMagnifyingGlass size="24" color="#a4a4a4" />
+			</template>
+		</BaseButton>
 	</div>
 </template>
 
@@ -35,9 +45,11 @@
 		@include field-default-styles();
 		justify-content: space-between;
 		gap: 16px;
-		padding: 0px 12px 0px 0px;
+		padding: 0px 0px 0px 0px;
 	}
-	.search-bar__icon {
-		@include center(row);
+	.search-bar__button {
+		height: 45px;
+		border-top-right-radius: 8px;
+		border-bottom-right-radius: 8px;
 	}
 </style>
