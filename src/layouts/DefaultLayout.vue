@@ -1,14 +1,14 @@
 <script lang="ts" setup>
-	import TheContainer from "../components/TheContainer.vue";
+	import BaseContainer from "../components/BaseContainer.vue";
 	import TheHeader from "../components/TheHeader.vue";
 </script>
 
 <template>
 	<TheHeader />
 	<main class="main-content">
-		<TheContainer>
+		<BaseContainer>
 			<slot></slot>
-		</TheContainer>
+		</BaseContainer>
 	</main>
 </template>
 

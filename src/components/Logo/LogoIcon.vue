@@ -3,7 +3,7 @@
 </template>
 
 <style lang="scss" scoped>
-	@import "../styles/scss/main";
+	@import "../../styles/scss/main";
 	.logo__icon {
 		@include center(row);
 	}

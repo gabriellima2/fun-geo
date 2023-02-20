@@ -1,15 +1,15 @@
 <script lang="ts" setup>
 	import Navigation from "./Navigation/Navigation.vue";
-	import TheContainer from "./TheContainer.vue";
-	import TheLogo from "./TheLogo.vue";
+	import BaseContainer from "./BaseContainer.vue";
+	import Logo from "./Logo/Logo.vue";
 </script>
 
 <template>
 	<header class="header">
-		<TheContainer class="header-content">
-			<TheLogo />
+		<BaseContainer class="header-content">
+			<Logo />
 			<Navigation />
-		</TheContainer>
+		</BaseContainer>
 	</header>
 </template>
 
