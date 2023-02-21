@@ -1,7 +1,8 @@
 <script lang="ts" setup>
+	import { ref } from "vue";
 	import { useFetch } from "@/composables/useFetch";
 
-	import FilterByRegion from "@/components/FilterByRegion.vue";
+	import BaseSelect, { type OptionProps } from "../BaseSelect.vue";
 	import SearchBar from "@/components/SearchBar.vue";
 	import CountriesList from "./CountriesList.vue";
 	import BaseLoading from "../BaseLoading.vue";
@@ -10,20 +11,38 @@
 	import { countriesService } from "@/services/countries-service";
 	import type { CountryDTO } from "@/dtos/country-dtos/country-dto";
 
+	const filterByRegionValue = ref("");
 	const { data, error, isLoading } = useFetch<CountryDTO[]>(
 		countriesService.getAll
 	);
+
+	const filterByRegionOptions: OptionProps[] = [
+		{ text: "Todos", value: "" },
+		{ text: "África", value: "africa" },
+		{ text: "América", value: "americas" },
+		{ text: "Asia", value: "asia" },
+		{ text: "Europa", value: "europe" },
+		{ text: "Oceania", value: "oceania" },
+	];
 </script>
 
 <template>
 	<div>
 		<section class="filters">
 			<SearchBar @search="(v) => {}" />
-			<FilterByRegion @filter="(v) => {}" />
+			<BaseSelect
+				v-model="filterByRegionValue"
+				label="Filtrar por região"
+				:options="filterByRegionOptions"
+			/>
 		</section>
 		<BaseLoading v-if="isLoading" />
 		<BaseError v-else-if="error" :message="error" />
-		<CountriesList v-else-if="data" :countries="data" />
+		<CountriesList
+			v-else-if="data"
+			:countries="data"
+			:filter="filterByRegionValue"
+		/>
 	</div>
 </template>
 

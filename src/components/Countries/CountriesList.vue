@@ -11,6 +11,7 @@
 
 	type CountryListProps = {
 		countries: CountryDTO[];
+		filter?: string;
 	};
 
 	const PAGE_LIMIT = 4;
@@ -22,9 +23,16 @@
 		pageLimit: PAGE_LIMIT,
 	});
 
+	const filteredCountries = computed(() => {
+		if (!props.filter) return props.countries;
+		return props.countries.filter((country) => {
+			return country.region.toLowerCase() === props.filter;
+		});
+	});
+
 	const items = computed(() =>
 		convertIntoTwoDimensionalArray<CountryDTO>({
-			array: props.countries,
+			array: filteredCountries.value,
 			rowsLength: itemsPerPage,
 		})
 	);
