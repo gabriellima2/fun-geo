@@ -20,6 +20,7 @@
 		{ text: "Todos", value: "" },
 		{ text: "África", value: "africa" },
 		{ text: "América", value: "americas" },
+		{ text: "Antártida", value: "antarctic" },
 		{ text: "Asia", value: "asia" },
 		{ text: "Europa", value: "europe" },
 		{ text: "Oceania", value: "oceania" },
