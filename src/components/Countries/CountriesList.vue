@@ -44,7 +44,7 @@
 			<CountriesListItem
 				v-for="country in items[currentPage - 1]"
 				:key="country.name.common"
-				:name="country.name.common"
+				:name="country.translations.por.common"
 				:flag="{ src: country.flags.png, alt: country.flags.alt }"
 				:region="country.region"
 			/>

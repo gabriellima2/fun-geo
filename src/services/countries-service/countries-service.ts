@@ -1,7 +1,9 @@
 const BASE_URL = "https://restcountries.com/v3.1/";
 
 export const countriesService = {
-	getAll: async <T extends object | []>(fields = "name,flags,region") => {
+	getAll: async <T extends object | []>(
+		fields = "name,flags,region,translations"
+	) => {
 		if (!fields) throw new Error("Please, pass valid fields parameters!");
 
 		const response = await fetch(`${BASE_URL}/all?fields=${fields}`);
