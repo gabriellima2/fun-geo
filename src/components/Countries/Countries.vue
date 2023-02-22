@@ -1,13 +1,10 @@
 <script lang="ts" setup>
-	import { ref } from "vue";
-	import { useRouter } from "vue-router";
+	import { useCountries } from "./composables/useCountries";
 
-	import { useFetch } from "@/composables/useFetch";
-
-	import BaseSelect, { type OptionProps } from "../BaseSelect.vue";
 	import SearchBar from "@/components/SearchBar.vue";
 	import CountriesList from "./CountriesList.vue";
 	import BaseLoading from "../BaseLoading.vue";
+	import BaseSelect from "../BaseSelect.vue";
 	import BaseError from "../BaseError.vue";
 
 	import type { CountryDTO } from "@/dtos/country-dtos/country-dto";
@@ -17,24 +14,10 @@
 	};
 
 	const props = defineProps<CountriesProps>();
-
-	const filterByRegionValue = ref("");
-	const router = useRouter();
-	const { data, error, isLoading } = useFetch<CountryDTO[]>(props.service);
-
-	const filterByRegionOptions: OptionProps[] = [
-		{ text: "Todos", value: "" },
-		{ text: "África", value: "africa" },
-		{ text: "América", value: "americas" },
-		{ text: "Antártida", value: "antarctic" },
-		{ text: "Asia", value: "asia" },
-		{ text: "Europa", value: "europe" },
-		{ text: "Oceania", value: "oceania" },
-	];
-
-	function handleSearch(value: string) {
-		router.push({ path: "/resultados", query: { q: value } });
-	}
+	const { countries, error, isLoading, filterByRegion, handleSearch } =
+		useCountries({
+			service: props.service,
+		});
 </script>
 
 <template>
@@ -42,17 +25,17 @@
 		<section class="filters">
 			<SearchBar @search="handleSearch" />
 			<BaseSelect
-				v-model="filterByRegionValue"
+				v-model="filterByRegion.value"
 				label="Filtrar por região"
-				:options="filterByRegionOptions"
+				:options="filterByRegion.options"
 			/>
 		</section>
 		<BaseLoading v-if="isLoading" />
 		<BaseError v-else-if="error" :message="error" />
 		<CountriesList
-			v-else-if="data"
-			:countries="data"
-			:filter-by-region-value="filterByRegionValue"
+			v-else-if="countries"
+			:countries="countries"
+			:filter-by-region-value="filterByRegion.value"
 		/>
 	</div>
 </template>
