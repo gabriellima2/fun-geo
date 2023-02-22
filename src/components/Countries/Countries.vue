@@ -10,8 +10,10 @@
 
 	import { countriesService } from "@/services/countries-service";
 	import type { CountryDTO } from "@/dtos/country-dtos/country-dto";
+	import { useRouter } from "vue-router";
 
 	const filterByRegionValue = ref("");
+	const router = useRouter();
 	const { data, error, isLoading } = useFetch<CountryDTO[]>(
 		countriesService.getAll
 	);
@@ -25,12 +27,16 @@
 		{ text: "Europa", value: "europe" },
 		{ text: "Oceania", value: "oceania" },
 	];
+
+	function handleSearch(value: string) {
+		router.push({ path: "/resultados", query: { q: value } });
+	}
 </script>
 
 <template>
 	<div>
 		<section class="filters">
-			<SearchBar @search="(v) => {}" />
+			<SearchBar @search="handleSearch" />
 			<BaseSelect
 				v-model="filterByRegionValue"
 				label="Filtrar por região"

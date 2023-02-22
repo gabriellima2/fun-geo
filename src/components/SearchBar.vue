@@ -12,11 +12,15 @@
 	const emits = defineEmits<SearchBarEmits>();
 	const searchValue = ref("");
 
-	const emitSearchEvent = () => emits("search", searchValue.value);
+	const emitSearchEvent = () => {
+		const formattedSearchValue = searchValue.value.trim().toLowerCase();
+		if (!formattedSearchValue) return;
+		emits("search", searchValue.value);
+	};
 </script>
 
 <template>
-	<div class="search-bar">
+	<form class="search-bar">
 		<label>
 			<BaseInput
 				v-bind="$attrs"
@@ -26,16 +30,16 @@
 			/>
 		</label>
 		<BaseButton
-			type="button"
+			type="submit"
 			title="Pesquisar"
 			class="search-bar__button"
-			@click="emitSearchEvent"
+			@click.prevent="emitSearchEvent"
 		>
 			<template #base-button-icon>
 				<PhMagnifyingGlass size="24" color="#a4a4a4" />
 			</template>
 		</BaseButton>
-	</div>
+	</form>
 </template>
 
 <style scoped lang="scss">
