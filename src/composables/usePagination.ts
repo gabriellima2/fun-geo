@@ -11,6 +11,7 @@ type UsePaginationReturn = {
 	itemsPerPage: number;
 	nextPage: () => void;
 	previousPage: () => void;
+	backToFirstPage: () => void;
 };
 
 export function usePagination<T>(
@@ -31,10 +32,16 @@ export function usePagination<T>(
 		currentPage.value -= 1;
 	};
 
+	const backToFirstPage = () => {
+		if (currentPage.value === 1) return;
+		currentPage.value = 1;
+	};
+
 	return {
 		currentPage,
 		itemsPerPage,
 		nextPage,
 		previousPage,
+		backToFirstPage,
 	};
 }

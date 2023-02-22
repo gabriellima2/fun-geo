@@ -42,7 +42,7 @@
 		<CountriesList
 			v-else-if="data"
 			:countries="data"
-			:filter="filterByRegionValue"
+			:filter-by-region-value="filterByRegionValue"
 		/>
 	</div>
 </template>

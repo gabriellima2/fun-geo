@@ -1,5 +1,5 @@
 <script setup lang="ts">
-	import { computed } from "vue";
+	import { computed, watch } from "vue";
 
 	import { usePagination } from "@/composables/usePagination";
 
@@ -11,22 +11,25 @@
 
 	type CountryListProps = {
 		countries: CountryDTO[];
-		filter?: string;
+		filterByRegionValue?: string;
 	};
 
 	const PAGE_LIMIT = 4;
 	const FIRST_PAGE = 1;
 
 	const props = defineProps<CountryListProps>();
-	const { currentPage, itemsPerPage, nextPage, previousPage } = usePagination({
-		data: props.countries,
-		pageLimit: PAGE_LIMIT,
-	});
+
+	const { currentPage, itemsPerPage, nextPage, previousPage, backToFirstPage } =
+		usePagination<CountryDTO>({
+			data: props.countries,
+			pageLimit: PAGE_LIMIT,
+		});
 
 	const filteredCountries = computed(() => {
-		if (!props.filter) return props.countries;
+		if (!props.filterByRegionValue) return props.countries;
+
 		return props.countries.filter((country) => {
-			return country.region.toLowerCase() === props.filter;
+			return country.region.toLowerCase() === props.filterByRegionValue;
 		});
 	});
 
@@ -36,6 +39,8 @@
 			rowsLength: itemsPerPage,
 		})
 	);
+
+	watch(filteredCountries, () => currentPage.value !== 1 && backToFirstPage());
 </script>
 
 <template>
@@ -58,7 +63,7 @@
 			<PaginationButton
 				variant="next"
 				@click="nextPage"
-				:disabled="currentPage === PAGE_LIMIT"
+				:disabled="!items[currentPage] || currentPage === PAGE_LIMIT"
 			/>
 		</div>
 	</article>
