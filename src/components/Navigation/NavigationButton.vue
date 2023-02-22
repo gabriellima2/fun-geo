@@ -1,10 +1,9 @@
 <script lang="ts" setup>
-	import { computed } from "vue";
+	import { type ButtonHTMLAttributes, computed } from "vue";
 
-	type NavigationButtonProps = {
+	interface NavigationButtonProps extends ButtonHTMLAttributes {
 		isOpen: boolean;
-		handleClick: () => void;
-	};
+	}
 
 	const props = defineProps<NavigationButtonProps>();
 	const titleMessage = computed(() =>
@@ -14,8 +13,9 @@
 
 <template>
 	<button
+		v-bind="props"
 		class="navigation-button"
-		@click="props.handleClick"
+		type="button"
 		:title="titleMessage"
 	>
 		<i v-if="props.isOpen" class="navigation-button__icon"

@@ -27,7 +27,7 @@
 		<div id="navigation-menu" @keydown="handleKeydownOnlyMobile">
 			<NavigationButton
 				:is-open="isOpen"
-				:handle-click="handleToggleNavigation"
+				@click="handleToggleNavigation"
 				class="mobile-navigation-button"
 			/>
 
