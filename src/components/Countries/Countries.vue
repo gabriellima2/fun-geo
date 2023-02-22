@@ -1,5 +1,7 @@
 <script lang="ts" setup>
 	import { ref } from "vue";
+	import { useRouter } from "vue-router";
+
 	import { useFetch } from "@/composables/useFetch";
 
 	import BaseSelect, { type OptionProps } from "../BaseSelect.vue";
@@ -8,15 +10,17 @@
 	import BaseLoading from "../BaseLoading.vue";
 	import BaseError from "../BaseError.vue";
 
-	import { countriesService } from "@/services/countries-service";
 	import type { CountryDTO } from "@/dtos/country-dtos/country-dto";
-	import { useRouter } from "vue-router";
+
+	type CountriesProps = {
+		service: () => Promise<CountryDTO[]>;
+	};
+
+	const props = defineProps<CountriesProps>();
 
 	const filterByRegionValue = ref("");
 	const router = useRouter();
-	const { data, error, isLoading } = useFetch<CountryDTO[]>(
-		countriesService.getAll
-	);
+	const { data, error, isLoading } = useFetch<CountryDTO[]>(props.service);
 
 	const filterByRegionOptions: OptionProps[] = [
 		{ text: "Todos", value: "" },

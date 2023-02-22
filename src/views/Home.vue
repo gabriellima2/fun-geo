@@ -1,13 +1,15 @@
 <script lang="ts" setup>
 	import Countries from "@/components/Countries/Countries.vue";
 	import DefaultLayout from "@/layouts/DefaultLayout.vue";
+
+	import { countriesService } from "@/services/countries-service";
 </script>
 
 <template>
 	<DefaultLayout>
 		<div class="home-page">
 			<h1 class="home-page__title">Explore os países do mundo!</h1>
-			<Countries />
+			<Countries :service="countriesService.getAll" />
 		</div>
 	</DefaultLayout>
 </template>
