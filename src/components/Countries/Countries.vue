@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-	import { useCountries } from "./composables/useCountries";
+	import { useFilterCountries } from "./composables/useFilterCountries";
+	import { useFetch } from "@/composables/useFetch";
 
 	import SearchBar from "@/components/SearchBar.vue";
 	import CountriesList from "./CountriesList.vue";
@@ -14,10 +15,8 @@
 	};
 
 	const props = defineProps<CountriesProps>();
-	const { countries, error, isLoading, filterByRegion, handleSearch } =
-		useCountries({
-			service: props.service,
-		});
+	const { data, error, isLoading } = useFetch<CountryDTO[]>(props.service);
+	const { filter, handleSearch } = useFilterCountries();
 </script>
 
 <template>
@@ -25,17 +24,17 @@
 		<section class="filters">
 			<SearchBar @search="handleSearch" />
 			<BaseSelect
-				v-model="filterByRegion.value"
+				v-model="filter.value"
 				label="Filtrar por região"
-				:options="filterByRegion.options"
+				:options="filter.options"
 			/>
 		</section>
 		<BaseLoading v-if="isLoading" />
 		<BaseError v-else-if="error" :message="error" />
 		<CountriesList
-			v-else-if="countries"
-			:countries="countries"
-			:filter-by-region-value="filterByRegion.value"
+			v-else-if="data"
+			:countries="data"
+			:filter-by-region-value="filter.value"
 		/>
 	</div>
 </template>
