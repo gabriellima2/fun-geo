@@ -22,7 +22,7 @@
 <template>
 	<li class="country-list-item">
 		<RouterLink
-			:to="{ path: `detalhes/${countryNameInLowerCase}` }"
+			:to="{ path: `detalhes-nacao/${countryNameInLowerCase}` }"
 			class="country"
 		>
 			<div class="country__image-container">
