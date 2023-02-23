@@ -1,8 +1,8 @@
 <script setup lang="ts">
-	import { computed } from "vue";
 	import FavoriteButton from "../Buttons/FavoriteButton.vue";
 
 	type CountryListItemProps = {
+		id: string;
 		name: string;
 		flag: {
 			src: string;
@@ -12,7 +12,6 @@
 	};
 
 	const props = defineProps<CountryListItemProps>();
-	const countryNameInLowerCase = computed(() => props.name.toLocaleLowerCase());
 
 	function handleFavorite(id: string) {
 		console.log(id);
@@ -21,10 +20,7 @@
 
 <template>
 	<li class="country-list-item">
-		<RouterLink
-			:to="{ path: `detalhes-nacao/${countryNameInLowerCase}` }"
-			class="country"
-		>
+		<RouterLink :to="{ path: `detalhes-nacao/${props.id}` }" class="country">
 			<div class="country__image-container">
 				<img
 					:src="props.flag.src"
@@ -38,7 +34,7 @@
 					<h2 class="texts__subtitle">{{ props.region }}</h2>
 				</div>
 				<FavoriteButton
-					@click.prevent="() => handleFavorite(countryNameInLowerCase)"
+					@click.prevent="() => handleFavorite(props.id)"
 					:is-favorite="false"
 				/>
 			</section>
