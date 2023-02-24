@@ -1,7 +1,7 @@
 <script setup lang="ts">
 	import { useRoute } from "vue-router";
 
-	import Countries from "@/components/Countries/Countries.vue";
+	import CountriesOverview from "@/components/Countries/CountriesOverview.vue";
 	import DefaultLayout from "@/layouts/DefaultLayout.vue";
 
 	import { countriesService } from "@/services/countries-service";
@@ -14,7 +14,7 @@
 
 <template>
 	<DefaultLayout>
-		<Countries :service="getByNameService" />
+		<CountriesOverview :service="getByNameService" />
 	</DefaultLayout>
 </template>
 

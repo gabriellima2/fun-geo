@@ -2,19 +2,19 @@
 	import { useFilterCountries } from "./composables/useFilterCountries";
 	import { useFetch } from "@/composables/useFetch";
 
+	import CountriesOverviewList from "./CountriesOverviewList.vue";
 	import SearchBar from "@/components/SearchBar.vue";
-	import CountriesList from "./CountriesList.vue";
 	import BaseLoading from "../BaseLoading.vue";
 	import BaseSelect from "../BaseSelect.vue";
 	import BaseError from "../BaseError.vue";
 
 	import type { CountryDTO } from "@/dtos/country-dtos/country-dto";
 
-	type CountriesProps = {
+	type CountriesOverviewProps = {
 		service: () => Promise<CountryDTO[]>;
 	};
 
-	const props = defineProps<CountriesProps>();
+	const props = defineProps<CountriesOverviewProps>();
 	const { data, error, isLoading } = useFetch<CountryDTO[]>(props.service);
 	const { filter, handleSearch } = useFilterCountries();
 </script>
@@ -31,7 +31,7 @@
 		</section>
 		<BaseLoading v-if="isLoading" />
 		<BaseError v-else-if="error" :message="error" />
-		<CountriesList
+		<CountriesOverviewList
 			v-else-if="data"
 			:countries="data"
 			:filter-by-region-value="filter.value"

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-	import Countries from "@/components/Countries/Countries.vue";
+	import CountriesOverview from "@/components/Countries/CountriesOverview.vue";
 	import DefaultLayout from "@/layouts/DefaultLayout.vue";
 
 	import { countriesService } from "@/services/countries-service";
@@ -9,7 +9,7 @@
 	<DefaultLayout>
 		<div class="home-page">
 			<h1 class="home-page__title">Explore os países do mundo!</h1>
-			<Countries :service="countriesService.getAll" />
+			<CountriesOverview :service="countriesService.getAll" />
 		</div>
 	</DefaultLayout>
 </template>

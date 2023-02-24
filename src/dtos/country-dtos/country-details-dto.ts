@@ -1,10 +1,11 @@
 import { CountryDTO } from "./country-dto";
 
+import type { ICurrencies } from "@/interfaces/ICurrencies";
+
 export interface CountryDetailsDTO extends CountryDTO {
-	currencies: { [key: string]: { name: string; Symbol: string } };
+	currencies: ICurrencies;
 	capital: string[];
 	continents: string;
-	languages: { [key: string]: string };
 	area: number;
 	population: number;
 }

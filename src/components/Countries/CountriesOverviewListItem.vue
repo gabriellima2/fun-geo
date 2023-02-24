@@ -1,7 +1,8 @@
 <script setup lang="ts">
+	import { useFavoriteCountries } from "./composables/useFavoriteCountries";
 	import FavoriteButton from "../Buttons/FavoriteButton.vue";
 
-	type CountryListItemProps = {
+	type CountriesOverviewListItemProps = {
 		id: string;
 		name: string;
 		flag: {
@@ -11,11 +12,8 @@
 		region: string;
 	};
 
-	const props = defineProps<CountryListItemProps>();
-
-	function handleFavorite(id: string) {
-		console.log(id);
-	}
+	const props = defineProps<CountriesOverviewListItemProps>();
+	const { handleFavorite } = useFavoriteCountries();
 </script>
 
 <template>

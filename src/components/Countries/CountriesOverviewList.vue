@@ -3,13 +3,13 @@
 
 	import { usePagination } from "@/composables/usePagination";
 
-	import CountriesListItem from "./CountriesListItem.vue";
+	import CountriesOverviewListItem from "./CountriesOverviewListItem.vue";
 	import PaginationButton from "../Buttons/PaginationButton.vue";
 
 	import { convertIntoTwoDimensionalArray } from "@/functions/convert-into-two-dimensional-array";
 	import type { CountryDTO } from "@/dtos/country-dtos/country-dto";
 
-	type CountryListProps = {
+	type CountriesOverviewListProps = {
 		countries: CountryDTO[];
 		filterByRegionValue?: string;
 	};
@@ -17,7 +17,7 @@
 	const PAGE_LIMIT = 4;
 	const FIRST_PAGE = 1;
 
-	const props = defineProps<CountryListProps>();
+	const props = defineProps<CountriesOverviewListProps>();
 
 	const { currentPage, itemsPerPage, nextPage, previousPage, backToFirstPage } =
 		usePagination<CountryDTO>({
@@ -46,7 +46,7 @@
 <template>
 	<article>
 		<ul class="country-list">
-			<CountriesListItem
+			<CountriesOverviewListItem
 				v-for="country in items[currentPage - 1]"
 				:key="country.name.common"
 				:id="country.name.common.toLowerCase()"
