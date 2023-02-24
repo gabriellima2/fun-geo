@@ -22,3 +22,9 @@
 	font-family: $main-font-family;
 	background-color: $util-color-900;
 }
+
+@mixin subtitle($font-size) {
+	font-size: $font-size;
+	font-weight: 500;
+	opacity: 0.6;
+}
