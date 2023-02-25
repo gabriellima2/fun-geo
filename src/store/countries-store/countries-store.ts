@@ -31,7 +31,7 @@ export const useCountriesStore = defineStore("countries", () => {
 			.finally(() => (countries.isLoading = false));
 	}
 
-	async function hydrateFavoriteCountries() {
+	function hydrateFavoriteCountries() {
 		const storedFavoriteCountries = localStorageService.get<FavoriteCountries>({
 			key: "favorite-countries",
 		});

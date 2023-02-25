@@ -33,12 +33,4 @@
 		max-width: 290px;
 		padding-top: 32px;
 	}
-
-	.filters {
-		@include center(row);
-		justify-content: space-between;
-		gap: 12px;
-		flex-wrap: wrap;
-		padding: 48px 0px;
-	}
 </style>
