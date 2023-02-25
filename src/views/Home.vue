@@ -4,6 +4,8 @@
 	import { useCountriesStore } from "@/store";
 
 	import CountriesOverview from "@/components/Countries/CountriesOverview.vue";
+	import PageTitle from "@/components/PageTitle.vue";
+
 	import DefaultLayout from "@/layouts/DefaultLayout.vue";
 
 	const store = useCountriesStore();
@@ -12,25 +14,11 @@
 
 <template>
 	<DefaultLayout>
-		<div class="home-page">
-			<h1 class="home-page__title">Explore os países do mundo!</h1>
-			<CountriesOverview
-				:countries="countries.data"
-				:is-loading="countries.isLoading"
-				:error="countries.error"
-			/>
-		</div>
+		<PageTitle>Explore os países do mundo!</PageTitle>
+		<CountriesOverview
+			:countries="countries.data"
+			:is-loading="countries.isLoading"
+			:error="countries.error"
+		/>
 	</DefaultLayout>
 </template>
-
-<style scoped lang="scss">
-	@import "../styles/scss/main";
-
-	.home-page {
-		width: 100%;
-	}
-	.home-page__title {
-		max-width: 290px;
-		padding-top: 32px;
-	}
-</style>
