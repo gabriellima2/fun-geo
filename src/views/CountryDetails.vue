@@ -2,6 +2,7 @@
 	import { useRoute } from "vue-router";
 
 	import CountriesInfo from "@/components/Countries/CountriesInfo.vue";
+	import DefaultLayout from "@/layouts/DefaultLayout.vue";
 
 	import { countriesService } from "@/services/countries-service";
 	import type { CountryDetailsDTO } from "@/dtos/country-dtos";
@@ -18,7 +19,24 @@
 </script>
 
 <template>
-	<CountriesInfo :service="getByNameService" />
+	<DefaultLayout>
+		<div class="country-details">
+			<CountriesInfo :service="getByNameService" />
+		</div>
+	</DefaultLayout>
 </template>
 
-<style scoped></style>
+<style scoped lang="scss">
+	@import "../styles/scss/main";
+
+	.country-details {
+		@include center(column);
+		height: 100vh;
+	}
+
+	@media screen and (min-width: $md-screen) {
+		.country-details {
+			height: 88vh;
+		}
+	}
+</style>
