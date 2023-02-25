@@ -9,7 +9,6 @@
 	import BaseError from "../BaseError.vue";
 
 	import type { CountryDTO } from "@/dtos/country-dtos/country-dto";
-
 	type CountriesOverviewProps = {
 		service: () => Promise<CountryDTO[]>;
 	};

@@ -1,20 +1,22 @@
 <script setup lang="ts">
-	type SubInfoProps = {
+	import type { HTMLAttributes } from "vue";
+
+	interface SubInfoProps extends HTMLAttributes {
 		title: string;
 		subtitle: string;
-	};
+	}
 
 	const props = defineProps<SubInfoProps>();
 </script>
 
 <template>
-	<section class="sub-info">
+	<div class="sub-info">
 		<i class="sub-info__icon"><slot name="sub-info-icon"></slot></i>
 		<div class="sub-info__texts">
 			<h2>{{ props.title }}</h2>
 			<h3>{{ props.subtitle }}</h3>
 		</div>
-	</section>
+	</div>
 </template>
 
 <style scoped lang="scss">
@@ -40,9 +42,7 @@
 		}
 
 		& > h3 {
-			opacity: 0.6;
-			font-size: 0.8rem;
-			font-weight: 600;
+			@include subtitle(0.8rem);
 		}
 	}
 </style>
