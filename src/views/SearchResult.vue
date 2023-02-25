@@ -1,6 +1,8 @@
 <script setup lang="ts">
 	import { useRoute } from "vue-router";
 
+	import { useFetch } from "@/composables/useFetch";
+
 	import CountriesOverview from "@/components/Countries/CountriesOverview.vue";
 	import DefaultLayout from "@/layouts/DefaultLayout.vue";
 
@@ -8,13 +10,18 @@
 	import type { CountryDTO } from "@/dtos/country-dtos";
 
 	const { query } = useRoute();
-	const getByNameService = () =>
-		countriesService.getByName<CountryDTO[]>(query.q as string);
+	const { data, error, isLoading } = useFetch(() =>
+		countriesService.getByName<CountryDTO[]>(query.q as string)
+	);
 </script>
 
 <template>
 	<DefaultLayout>
-		<CountriesOverview :service="getByNameService" />
+		<CountriesOverview
+			:countries="data"
+			:is-loading="isLoading"
+			:error="error"
+		/>
 	</DefaultLayout>
 </template>
 

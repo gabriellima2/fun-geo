@@ -1,15 +1,24 @@
 <script lang="ts" setup>
+	import { storeToRefs } from "pinia";
+
+	import { useCountriesStore } from "@/store";
+
 	import CountriesOverview from "@/components/Countries/CountriesOverview.vue";
 	import DefaultLayout from "@/layouts/DefaultLayout.vue";
 
-	import { countriesService } from "@/services/countries-service";
+	const store = useCountriesStore();
+	const { countries } = storeToRefs(store);
 </script>
 
 <template>
 	<DefaultLayout>
 		<div class="home-page">
 			<h1 class="home-page__title">Explore os países do mundo!</h1>
-			<CountriesOverview :service="countriesService.getAll" />
+			<CountriesOverview
+				:countries="countries.data"
+				:is-loading="countries.isLoading"
+				:error="countries.error"
+			/>
 		</div>
 	</DefaultLayout>
 </template>
