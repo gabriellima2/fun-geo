@@ -29,15 +29,11 @@
 		width: 100%;
 	}
 	.base-card__header {
-		border-radius: $border-radius;
 		border: $border-default-style;
-		padding: 8px;
 	}
 
 	.base-card__body {
-		padding: 8px;
 		flex: 1;
-		border-radius: $border-radius;
 		border: $border-default-style;
 		background-color: $util-color-900;
 	}

@@ -76,6 +76,7 @@
 	}
 	.country__image-container {
 		@include center(row);
+		padding: 8px;
 	}
 	.country__image {
 		width: 110px;
@@ -88,6 +89,7 @@
 		justify-content: space-between;
 		align-items: flex-start;
 		flex: 1;
+		padding: 8px;
 	}
 	.texts {
 		@include center(column);
