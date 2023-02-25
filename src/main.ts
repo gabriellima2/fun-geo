@@ -1,4 +1,5 @@
 import { createApp } from "vue";
+import { createPinia } from "pinia";
 import { PhGlobeHemisphereWest, PhHeart, PhList, PhX } from "phosphor-vue";
 
 import App from "./App.vue";
@@ -12,4 +13,5 @@ createApp(App)
 	.component("PhList", PhList)
 	.component("PhX", PhX)
 	.use(router)
+	.use(createPinia())
 	.mount("#app");

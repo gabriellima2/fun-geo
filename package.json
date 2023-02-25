@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "phosphor-vue": "^4.4.1",
+    "pinia": "^2.0.32",
     "vue": "^3.2.45",
     "vue-router": "^4.1.6"
   },
