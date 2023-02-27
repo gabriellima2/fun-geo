@@ -23,7 +23,7 @@ export const useCountriesStore = defineStore("countries", () => {
 	});
 	const favoriteCountries = ref<FavoriteCountries>([]);
 
-	async function hydrateCountries() {
+	function hydrateCountries() {
 		countriesService
 			.getAll<CountryDTO[]>()
 			.then((data) => (countries.data = data))
@@ -38,8 +38,8 @@ export const useCountriesStore = defineStore("countries", () => {
 		favoriteCountries.value = storedFavoriteCountries || [];
 	}
 
-	onMounted(async () => {
-		await hydrateCountries();
+	onMounted(() => {
+		hydrateCountries();
 		hydrateFavoriteCountries();
 	});
 
