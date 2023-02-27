@@ -1,4 +1,4 @@
-import { onMounted, reactive, ref, watch } from "vue";
+import { onMounted, reactive, ref } from "vue";
 import { defineStore } from "pinia";
 
 import { localStorageService } from "@/services/local-storage-service/local-storage-service";
