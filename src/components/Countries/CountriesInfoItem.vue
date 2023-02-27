@@ -33,7 +33,7 @@
 	};
 
 	const props = defineProps<CountriesInfoItemProps>();
-	const { handleFavorite } = useFavoriteCountries();
+	const { handleFavorite, isAlreadyFavorite } = useFavoriteCountries(props.id);
 
 	const iconStyle: TIconStyle = { color: "#f2f2f2", weight: "bold", size: 24 };
 	const officialCurrencyName = computed(
@@ -60,8 +60,8 @@
 						<h2 class="country-info-overview__subtitle">{{ props.region }}</h2>
 					</div>
 					<FavoriteButton
-						@click.prevent="() => handleFavorite(props.id)"
-						:is-favorite="false"
+						@click.prevent="handleFavorite"
+						:is-favorite="isAlreadyFavorite"
 					/>
 				</div>
 				<section class="country-info-additional">

@@ -15,7 +15,7 @@
 	};
 
 	const props = defineProps<CountriesOverviewListItemProps>();
-	const { handleFavorite } = useFavoriteCountries();
+	const { handleFavorite, isAlreadyFavorite } = useFavoriteCountries(props.id);
 </script>
 
 <template>
@@ -38,8 +38,8 @@
 							<h2 class="texts__subtitle">{{ props.region }}</h2>
 						</div>
 						<FavoriteButton
-							@click.prevent="() => handleFavorite(props.id)"
-							:is-favorite="false"
+							@click.prevent="handleFavorite"
+							:is-favorite="isAlreadyFavorite"
 						/>
 					</div>
 				</template>
