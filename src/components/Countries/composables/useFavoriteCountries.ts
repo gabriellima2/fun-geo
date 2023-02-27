@@ -12,7 +12,10 @@ type UseFavoriteCountries = {
 export function useFavoriteCountries(id: string): UseFavoriteCountries {
 	const store = useCountriesStore();
 
-	const handleFavorite = () => store.setFavoriteCountry(id);
+	const handleFavorite = () => {
+		if (store.isFavorite(id)) return store.removeFavoriteCountry(id);
+		store.setFavoriteCountry(id);
+	};
 
 	const isAlreadyFavorite = computed(() => store.isFavorite(id));
 

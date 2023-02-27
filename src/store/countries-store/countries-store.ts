@@ -1,4 +1,4 @@
-import { onMounted, reactive, ref } from "vue";
+import { onMounted, reactive, ref, watch } from "vue";
 import { defineStore } from "pinia";
 
 import { localStorageService } from "@/services/local-storage-service/local-storage-service";
@@ -53,6 +53,14 @@ export const useCountriesStore = defineStore("countries", () => {
 		hydrateFavoriteCountries();
 	}
 
+	function removeFavoriteCountry(id: string) {
+		localStorageService.set({
+			key: FAVORITE_COUNTRIES_KEY,
+			value: favoriteCountries.value.filter((country) => country.id !== id),
+		});
+		hydrateFavoriteCountries();
+	}
+
 	onMounted(() => {
 		hydrateCountries();
 		hydrateFavoriteCountries();
@@ -62,6 +70,7 @@ export const useCountriesStore = defineStore("countries", () => {
 		countries,
 		favoriteCountries,
 		setFavoriteCountry,
+		removeFavoriteCountry,
 		isFavorite,
 	};
 });
