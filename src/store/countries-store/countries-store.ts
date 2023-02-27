@@ -15,6 +15,8 @@ type Countries = {
 
 type FavoriteCountries = IFavoriteCountries[];
 
+const FAVORITE_COUNTRIES_KEY = "favorite-countries";
+
 export const useCountriesStore = defineStore("countries", () => {
 	const countries = reactive<Countries>({
 		isLoading: true,
@@ -33,9 +35,22 @@ export const useCountriesStore = defineStore("countries", () => {
 
 	function hydrateFavoriteCountries() {
 		const storedFavoriteCountries = localStorageService.get<FavoriteCountries>({
-			key: "favorite-countries",
+			key: FAVORITE_COUNTRIES_KEY,
 		});
 		favoriteCountries.value = storedFavoriteCountries || [];
+	}
+
+	function isFavorite(id: string) {
+		return favoriteCountries.value.some((value) => value.id === id);
+	}
+
+	function setFavoriteCountry(countryName: string) {
+		if (isFavorite(countryName)) return;
+		localStorageService.set({
+			key: FAVORITE_COUNTRIES_KEY,
+			value: [...favoriteCountries.value, { id: countryName }],
+		});
+		hydrateFavoriteCountries();
 	}
 
 	onMounted(() => {
@@ -46,5 +61,7 @@ export const useCountriesStore = defineStore("countries", () => {
 	return {
 		countries,
 		favoriteCountries,
+		setFavoriteCountry,
+		isFavorite,
 	};
 });

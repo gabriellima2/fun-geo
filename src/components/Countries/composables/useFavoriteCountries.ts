@@ -1,13 +1,17 @@
+import { useCountriesStore } from "@/store";
+import type { IFavoriteCountries } from "@/interfaces/IFavoriteCountries";
+
 type UseFavoriteCountries = {
-	favoriteCountries: [];
+	favoriteCountries: IFavoriteCountries[];
 	handleFavorite: (id: string) => void;
 };
 
 export function useFavoriteCountries(): UseFavoriteCountries {
-	const handleFavorite = (id: string) => console.log(id);
+	const store = useCountriesStore();
+	const handleFavorite = (id: string) => store.setFavoriteCountry(id);
 
 	return {
-		favoriteCountries: [],
+		favoriteCountries: store.favoriteCountries,
 		handleFavorite,
 	};
 }
