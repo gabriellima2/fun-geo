@@ -3,6 +3,7 @@ import Home from "@/views/Home.vue";
 
 const CountryDetails = () => import("../views/CountryDetails.vue");
 const SearchResult = () => import("../views/SearchResult.vue");
+const Favorites = () => import("../views/Favorites.vue");
 
 export const routes: RouteRecordRaw[] = [
 	{ path: "/", name: "Home", component: Home },
@@ -12,4 +13,5 @@ export const routes: RouteRecordRaw[] = [
 		component: CountryDetails,
 	},
 	{ path: "/resultados", name: "SearchResult", component: SearchResult },
+	{ path: "/favoritos", name: "Favorites", component: Favorites },
 ];

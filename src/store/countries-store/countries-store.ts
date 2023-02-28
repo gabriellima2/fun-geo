@@ -1,10 +1,10 @@
-import { onMounted, reactive, ref } from "vue";
+import { computed, onMounted, reactive, ref } from "vue";
 import { defineStore } from "pinia";
 
 import { localStorageService } from "@/services/local-storage-service/local-storage-service";
 import { countriesService } from "@/services/countries-service";
 
-import type { IFavoriteCountries } from "@/interfaces/IFavoriteCountries";
+import type { IStoredFavoriteCountries } from "@/interfaces/IStoredFavoriteCountries";
 import type { CountryDTO } from "@/dtos/country-dtos";
 
 type Countries = {
@@ -13,7 +13,7 @@ type Countries = {
 	data: CountryDTO[] | null;
 };
 
-type FavoriteCountries = IFavoriteCountries[];
+type StoredFavoriteCountries = IStoredFavoriteCountries[];
 
 const FAVORITE_COUNTRIES_KEY = "favorite-countries";
 
@@ -23,7 +23,7 @@ export const useCountriesStore = defineStore("countries", () => {
 		error: null,
 		data: null,
 	});
-	const favoriteCountries = ref<FavoriteCountries>([]);
+	const storedFavoriteCountries = ref<StoredFavoriteCountries>([]);
 
 	function hydrateCountries() {
 		countriesService
@@ -33,16 +33,19 @@ export const useCountriesStore = defineStore("countries", () => {
 			.finally(() => (countries.isLoading = false));
 	}
 
-	function hydrateFavoriteCountries() {
-		const storedFavoriteCountries = localStorageService.get<FavoriteCountries>({
-			key: FAVORITE_COUNTRIES_KEY,
-		});
-		favoriteCountries.value = storedFavoriteCountries || [];
+	function hydrateStoredFavoriteCountries() {
+		const favoriteCountriesInStorage =
+			localStorageService.get<StoredFavoriteCountries>({
+				key: FAVORITE_COUNTRIES_KEY,
+			});
+		storedFavoriteCountries.value = favoriteCountriesInStorage || [];
 	}
 
 	function isFavorite(id: string) {
 		const formattedID = id.toLocaleLowerCase();
-		return favoriteCountries.value.some((value) => value.id === formattedID);
+		return storedFavoriteCountries.value.some(
+			(value) => value.id === formattedID
+		);
 	}
 
 	function setFavoriteCountry(countryName: string) {
@@ -50,32 +53,46 @@ export const useCountriesStore = defineStore("countries", () => {
 		localStorageService.set({
 			key: FAVORITE_COUNTRIES_KEY,
 			value: [
-				...favoriteCountries.value,
+				...storedFavoriteCountries.value,
 				{ id: countryName.toLocaleLowerCase() },
 			],
 		});
-		hydrateFavoriteCountries();
+		hydrateStoredFavoriteCountries();
 	}
 
 	function removeFavoriteCountry(id: string) {
 		const formattedID = id.toLocaleLowerCase();
 		localStorageService.set({
 			key: FAVORITE_COUNTRIES_KEY,
-			value: favoriteCountries.value.filter(
+			value: storedFavoriteCountries.value.filter(
 				(country) => country.id !== formattedID
 			),
 		});
-		hydrateFavoriteCountries();
+		hydrateStoredFavoriteCountries();
 	}
+
+	const favorites = computed(() => {
+		if (!countries.data) return [];
+		return storedFavoriteCountries.value.reduce<CountryDTO[]>(
+			(acc, favorite) => {
+				const favoriteCountryData = countries.data!.find(
+					(country) => country.name.common.toLowerCase() === favorite.id
+				);
+				if (!favoriteCountryData) return acc;
+				return [...acc, favoriteCountryData];
+			},
+			[]
+		);
+	});
 
 	onMounted(() => {
 		hydrateCountries();
-		hydrateFavoriteCountries();
+		hydrateStoredFavoriteCountries();
 	});
 
 	return {
 		countries,
-		favoriteCountries,
+		favorites,
 		setFavoriteCountry,
 		removeFavoriteCountry,
 		isFavorite,
