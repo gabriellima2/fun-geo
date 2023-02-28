@@ -41,22 +41,29 @@ export const useCountriesStore = defineStore("countries", () => {
 	}
 
 	function isFavorite(id: string) {
-		return favoriteCountries.value.some((value) => value.id === id);
+		const formattedID = id.toLocaleLowerCase();
+		return favoriteCountries.value.some((value) => value.id === formattedID);
 	}
 
 	function setFavoriteCountry(countryName: string) {
 		if (isFavorite(countryName)) return;
 		localStorageService.set({
 			key: FAVORITE_COUNTRIES_KEY,
-			value: [...favoriteCountries.value, { id: countryName }],
+			value: [
+				...favoriteCountries.value,
+				{ id: countryName.toLocaleLowerCase() },
+			],
 		});
 		hydrateFavoriteCountries();
 	}
 
 	function removeFavoriteCountry(id: string) {
+		const formattedID = id.toLocaleLowerCase();
 		localStorageService.set({
 			key: FAVORITE_COUNTRIES_KEY,
-			value: favoriteCountries.value.filter((country) => country.id !== id),
+			value: favoriteCountries.value.filter(
+				(country) => country.id !== formattedID
+			),
 		});
 		hydrateFavoriteCountries();
 	}
