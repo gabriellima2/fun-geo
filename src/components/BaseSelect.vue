@@ -9,6 +9,7 @@
 	interface BaseSelectProps extends SelectHTMLAttributes {
 		options: OptionProps[];
 		label: string;
+		disabled?: boolean;
 	}
 
 	type BaseSelectEmits = {
@@ -24,6 +25,7 @@
 		<select
 			v-bind="$attrs"
 			class="base-select"
+			:class="{ 'base-select--disabled': props.disabled }"
 			:title="props.label"
 			@change="($event) =>
 				emits('update:modelValue', ($event.target as HTMLInputElement).value)
@@ -61,5 +63,17 @@
 		background-repeat: no-repeat;
 		background-position-y: center;
 		background-position-x: 96%;
+
+		cursor: pointer;
+
+		&:focus,
+		&:hover {
+			filter: brightness(1.3);
+		}
+	}
+
+	.base-select--disabled {
+		pointer-events: none;
+		opacity: 0.5;
 	}
 </style>

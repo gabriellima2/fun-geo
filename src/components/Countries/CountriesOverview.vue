@@ -13,6 +13,7 @@
 		isLoading?: boolean;
 		error?: string | null;
 		countries: CountryDTO[] | null;
+		withSearchBar?: boolean;
 	};
 
 	const props = defineProps<CountriesOverviewProps>();
@@ -21,12 +22,16 @@
 
 <template>
 	<div>
-		<section class="filters">
-			<SearchBar @search="handleSearch" />
+		<section
+			class="filters"
+			:class="{ 'filters--without-search-bar': !withSearchBar }"
+		>
+			<SearchBar @search="handleSearch" v-if="props.withSearchBar" />
 			<BaseSelect
 				v-model="filter.value"
 				label="Filtrar por região"
 				:options="filter.options"
+				:disabled="!props.countries || props.countries.length < 2"
 			/>
 		</section>
 		<BaseLoading v-if="props.isLoading" />
@@ -48,5 +53,9 @@
 		gap: 12px;
 		flex-wrap: wrap;
 		padding: 48px 0px;
+	}
+
+	.filters--without-search-bar {
+		justify-content: flex-end;
 	}
 </style>
