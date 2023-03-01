@@ -12,12 +12,13 @@
 	type CountriesOverviewListProps = {
 		countries: CountryDTO[];
 		filterByRegionValue?: string;
+		quantityNotToApplyPagination: number;
 	};
+
+	const props = defineProps<CountriesOverviewListProps>();
 
 	const PAGE_LIMIT = 4;
 	const FIRST_PAGE = 1;
-
-	const props = defineProps<CountriesOverviewListProps>();
 
 	const { currentPage, itemsPerPage, nextPage, previousPage, backToFirstPage } =
 		usePagination<CountryDTO>({
@@ -33,12 +34,14 @@
 		});
 	});
 
-	const items = computed(() =>
-		convertIntoTwoDimensionalArray<CountryDTO>({
+	const items = computed(() => {
+		if (props.countries.length < props.quantityNotToApplyPagination)
+			return [filteredCountries.value];
+		return convertIntoTwoDimensionalArray<CountryDTO>({
 			array: filteredCountries.value,
 			rowsLength: itemsPerPage,
-		})
-	);
+		});
+	});
 
 	watch(filteredCountries, () => currentPage.value !== 1 && backToFirstPage());
 </script>
