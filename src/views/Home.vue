@@ -19,6 +19,7 @@
 			:countries="countries.data"
 			:is-loading="countries.isLoading"
 			:error="countries.error"
+			:with-search-bar="true"
 		/>
 	</DefaultLayout>
 </template>

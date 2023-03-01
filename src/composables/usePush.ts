@@ -7,6 +7,7 @@ export function usePush(): UsePushReturn {
 
 	const redirect = (to: RouteLocationRaw) => {
 		router.push(to);
+		window.location.reload();
 	};
 
 	return redirect;

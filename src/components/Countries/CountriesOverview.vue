@@ -40,7 +40,7 @@
 			v-else-if="props.countries"
 			:countries="props.countries"
 			:filter-by-region-value="filter.value"
-			:quantity-not-to-apply-pagination="32"
+			:quantity-not-to-apply-pagination="50"
 		/>
 	</div>
 </template>

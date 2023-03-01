@@ -31,6 +31,7 @@
 			:countries="data"
 			:is-loading="isLoading"
 			:error="error"
+			:with-search-bar="true"
 		/>
 	</DefaultLayout>
 </template>
