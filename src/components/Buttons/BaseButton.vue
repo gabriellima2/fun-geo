@@ -20,7 +20,6 @@
 
 	.base-button {
 		@include center(row);
-		gap: 8px;
 		padding: 8px;
 		background: none;
 		border: none;
@@ -28,7 +27,8 @@
 		cursor: pointer;
 		transition: background-color 0.2s ease;
 
-		&:hover {
+		&:hover,
+		&:focus {
 			background-color: #f2f2f21d;
 		}
 	}
