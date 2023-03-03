@@ -20,7 +20,7 @@
 </template>
 
 <style scoped lang="scss">
-	@import "../../../styles/scss/main";
+	@import "../styles/scss/main";
 
 	.sub-info {
 		@include center(row);
