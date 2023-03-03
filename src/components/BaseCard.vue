@@ -1,19 +1,24 @@
 <script setup lang="ts">
 	import { HTMLAttributes } from "vue";
 
-	interface BaseCardProps extends HTMLAttributes {}
+	interface BaseCardProps extends HTMLAttributes {
+		variants: "with-background" | "only-border";
+	}
 	const props = defineProps<BaseCardProps>();
 </script>
 
 <template>
-	<article class="base-card" v-bind="props">
-		<header class="base-card__header">
-			<slot name="base-card-header"></slot>
-		</header>
-		<section class="base-card__body">
-			<slot name="base-card-body"></slot>
-		</section>
-	</article>
+	<section
+		class="base-card"
+		:class="
+			props.variants === 'with-background'
+				? 'base-card--with-background'
+				: 'base-card--only-border'
+		"
+		v-bind="props"
+	>
+		<slot></slot>
+	</section>
 </template>
 
 <style scoped lang="scss">
@@ -26,14 +31,12 @@
 		display: flex;
 		flex-direction: row;
 		flex-wrap: wrap;
-		width: 100%;
 	}
-	.base-card__header {
+	.base-card--only-border {
 		border: $border-default-style;
 	}
 
-	.base-card__body {
-		flex: 1;
+	.base-card--with-background {
 		border: $border-default-style;
 		background-color: $util-color-900;
 	}

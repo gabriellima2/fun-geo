@@ -21,29 +21,21 @@
 <template>
 	<li class="overview-item">
 		<RouterLink :to="{ path: `detalhes-nacao/${props.id}` }" class="country">
-			<BaseCard class="overview-item">
-				<template #base-card-header>
-					<div class="country__image-container">
-						<img
-							:src="props.flag.src"
-							:alt="props.flag.alt"
-							class="country__image"
-						/>
-					</div>
-				</template>
-				<template #base-card-body>
-					<div class="preview">
-						<div class="texts">
-							<h1 class="texts__title">{{ props.name }}</h1>
-							<h2 class="texts__subtitle">{{ props.region }}</h2>
-						</div>
-						<FavoriteButton
-							@click.prevent="handleFavorite"
-							:is-favorite="isAlreadyFavorite"
-						/>
-					</div>
-				</template>
-			</BaseCard>
+			<BaseCard variants="only-border" class="country-header">
+				<img
+					:src="props.flag.src"
+					:alt="props.flag.alt"
+					class="country-header__image"
+			/></BaseCard>
+			<BaseCard variants="with-background" class="country-info">
+				<div class="texts">
+					<h1 class="texts__title">{{ props.name }}</h1>
+					<h2 class="texts__subtitle">{{ props.region }}</h2>
+				</div>
+				<FavoriteButton
+					@click.prevent="handleFavorite"
+					:is-favorite="isAlreadyFavorite"
+			/></BaseCard>
 		</RouterLink>
 	</li>
 </template>
@@ -74,17 +66,16 @@
 			background-color: $util-color-900;
 		}
 	}
-	.country__image-container {
+	.country-header {
 		@include center(row);
 		padding: 8px;
 	}
-	.country__image {
+	.country-header__image {
 		width: 110px;
 		height: 74px;
 		border-radius: 6px;
 	}
-	.preview {
-		height: 100%;
+	.country-info {
 		display: flex;
 		justify-content: space-between;
 		align-items: flex-start;

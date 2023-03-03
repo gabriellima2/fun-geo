@@ -42,89 +42,82 @@
 </script>
 
 <template>
-	<BaseCard class="country-info">
-		<template #base-card-header>
-			<div class="country-info-header">
-				<img
-					class="country-info-header__image"
-					:src="props.flag.src"
-					:alt="props.flag.alt"
+	<article class="country-info">
+		<BaseCard variants="only-border" class="country-info-header">
+			<img
+				class="country-info-header__image"
+				:src="props.flag.src"
+				:alt="props.flag.alt"
+			/>
+		</BaseCard>
+		<BaseCard variants="with-background" class="country-info-body">
+			<div class="country-info-overview">
+				<div>
+					<h1>{{ props.name }}</h1>
+					<h2 class="country-info-overview__subtitle">{{ props.region }}</h2>
+				</div>
+				<FavoriteButton
+					@click.prevent="handleFavorite"
+					:is-favorite="isAlreadyFavorite"
 				/>
 			</div>
-		</template>
-		<template #base-card-body>
-			<div class="country-info-body">
-				<div class="country-info-overview">
-					<div>
-						<h1>{{ props.name }}</h1>
-						<h2 class="country-info-overview__subtitle">{{ props.region }}</h2>
-					</div>
-					<FavoriteButton
-						@click.prevent="handleFavorite"
-						:is-favorite="isAlreadyFavorite"
-					/>
+			<section class="country-info-additional">
+				<div class="country-info-cols">
+					<SubInfo title="capital" :subtitle="props.capital">
+						<template #sub-info-icon
+							><PhHouse
+								:color="iconStyle.color"
+								:weight="iconStyle.weight"
+								:size="iconStyle.size"
+						/></template>
+					</SubInfo>
+					<SubInfo title="área de" :subtitle="`${props.area} Km²`">
+						<template #sub-info-icon
+							><PhPerspective
+								:color="iconStyle.color"
+								:weight="iconStyle.weight"
+								:size="iconStyle.size"
+						/></template>
+					</SubInfo>
+					<SubInfo title="continente" :subtitle="props.continent">
+						<template #sub-info-icon
+							><PhGlobeStand
+								:color="iconStyle.color"
+								:weight="iconStyle.weight"
+								:size="iconStyle.size"
+						/></template>
+					</SubInfo>
 				</div>
-				<section class="country-info-additional">
-					<div class="country-info-cols">
-						<SubInfo title="capital" :subtitle="props.capital">
-							<template #sub-info-icon
-								><PhHouse
-									:color="iconStyle.color"
-									:weight="iconStyle.weight"
-									:size="iconStyle.size"
-							/></template>
-						</SubInfo>
-						<SubInfo title="área de" :subtitle="`${props.area} Km²`">
-							<template #sub-info-icon
-								><PhPerspective
-									:color="iconStyle.color"
-									:weight="iconStyle.weight"
-									:size="iconStyle.size"
-							/></template>
-						</SubInfo>
-						<SubInfo title="continente" :subtitle="props.continent">
-							<template #sub-info-icon
-								><PhGlobeStand
-									:color="iconStyle.color"
-									:weight="iconStyle.weight"
-									:size="iconStyle.size"
-							/></template>
-						</SubInfo>
-					</div>
-					<div class="country-info-cols">
-						<SubInfo title="moeda oficial" :subtitle="officialCurrencyName">
-							<template #sub-info-icon
-								><PhCoins
-									:color="iconStyle.color"
-									:weight="iconStyle.weight"
-									:size="iconStyle.size"
-							/></template>
-						</SubInfo>
-						<SubInfo title="população de" :subtitle="`${props.population}`">
-							<template #sub-info-icon
-								><PhUsersThree
-									:color="iconStyle.color"
-									:weight="iconStyle.weight"
-									:size="iconStyle.size"
-							/></template>
-						</SubInfo>
-					</div>
-				</section>
-			</div>
-		</template>
-	</BaseCard>
+				<div class="country-info-cols">
+					<SubInfo title="moeda oficial" :subtitle="officialCurrencyName">
+						<template #sub-info-icon
+							><PhCoins
+								:color="iconStyle.color"
+								:weight="iconStyle.weight"
+								:size="iconStyle.size"
+						/></template>
+					</SubInfo>
+					<SubInfo title="população de" :subtitle="`${props.population}`">
+						<template #sub-info-icon
+							><PhUsersThree
+								:color="iconStyle.color"
+								:weight="iconStyle.weight"
+								:size="iconStyle.size"
+						/></template>
+					</SubInfo>
+				</div>
+			</section>
+		</BaseCard>
+	</article>
 </template>
 
 <style scoped lang="scss">
 	@import "../../styles/scss/main";
 
 	.country-info {
-		flex-direction: column;
-		max-width: 800px;
-	}
-	.country-info-content {
 		display: flex;
 		flex-direction: column;
+		max-width: 800px;
 	}
 	.country-info-header {
 		@include center(row);
@@ -138,9 +131,11 @@
 		border-radius: 8px;
 	}
 	.country-info-body {
+		flex: 1;
 		padding: 16px;
 	}
 	.country-info-overview {
+		width: 100%;
 		display: flex;
 		justify-content: space-between;
 		align-items: start;
@@ -150,6 +145,7 @@
 		@include subtitle(1rem);
 	}
 	.country-info-additional {
+		width: 100%;
 		display: flex;
 		justify-content: space-between;
 		gap: 20px;
