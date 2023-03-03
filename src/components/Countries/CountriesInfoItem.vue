@@ -11,8 +11,8 @@
 	import { useFavoriteCountries } from "./composables/useFavoriteCountries";
 
 	import FavoriteButton from "../Buttons/FavoriteButton.vue";
-	import SubInfo from "./components/SubInfo.vue";
 	import BaseCard from "../BaseCard.vue";
+	import SubInfo from "../SubInfo.vue";
 
 	import type { ICurrencies } from "@/interfaces/ICurrencies";
 	import type { TIconStyle } from "@/@types/TIcon";
