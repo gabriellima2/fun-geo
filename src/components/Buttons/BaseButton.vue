@@ -1,13 +1,22 @@
 <script setup lang="ts">
 	import type { ButtonHTMLAttributes } from "vue";
 
+	export type BaseButtonVariants = "default" | "success" | "error";
+
 	// eslint-disable-next-line @typescript-eslint/no-empty-interface
-	interface BaseButtonProps extends ButtonHTMLAttributes {}
+	interface BaseButtonProps extends Omit<ButtonHTMLAttributes, "disabled"> {
+		disabled?: boolean;
+		variants?: BaseButtonVariants;
+	}
 	const props = defineProps<BaseButtonProps>();
 </script>
 
 <template>
-	<button type="button" class="base-button" v-bind="props">
+	<button
+		type="button"
+		:class="`base-button ${props.disabled && 'base-button__disabled'}`"
+		v-bind="props"
+	>
 		<slot name="base-button-text"></slot>
 		<i class="base-button__icon">
 			<slot name="base-button-icon"></slot>
@@ -30,6 +39,26 @@
 		&:hover,
 		&:focus {
 			background-color: #f2f2f21d;
+		}
+	}
+	.base-button__disabled {
+		pointer-events: none;
+		opacity: 0.5;
+	}
+	button[variants="error"] {
+		pointer-events: none;
+		background-color: red;
+
+		&:hover {
+			background-color: red;
+		}
+	}
+	button[variants="success"] {
+		pointer-events: none;
+		background-color: green;
+
+		&:hover {
+			background-color: green;
 		}
 	}
 	.base-button__icon {
