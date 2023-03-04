@@ -16,7 +16,7 @@ export const useQuizStore = defineStore("quiz", () => {
 	const store = useCountriesStore();
 	const { countries } = storeToRefs(store);
 
-	const isCorrect = ref(false);
+	const isCorrect = ref<boolean | null>(null);
 	const remainingAttempts = ref(REMAINING_ATTEMPTS);
 	const countriesAlreadyShown = ref<CountriesAlreadyShown | null>(null);
 	const country = ref<CountryDTO | null>(null);
@@ -28,7 +28,7 @@ export const useQuizStore = defineStore("quiz", () => {
 
 	function restart() {
 		remainingAttempts.value = REMAINING_ATTEMPTS;
-		isCorrect.value = false;
+		isCorrect.value = null;
 	}
 
 	function hydrateCountry() {
@@ -51,7 +51,13 @@ export const useQuizStore = defineStore("quiz", () => {
 	}
 
 	function checkAnswer(answer: string) {
-		if (!country.value || remainingAttempts.value === 0 || !answer) return;
+		if (
+			!country.value ||
+			remainingAttempts.value === 0 ||
+			!answer ||
+			isCorrect.value
+		)
+			return;
 		const correctAnswer = country.value.translations.por.common.toLowerCase();
 		isCorrect.value = answer.toLowerCase() === correctAnswer;
 		remainingAttempts.value -= 1;

@@ -1,22 +1,25 @@
 <script setup lang="ts">
+	import { storeToRefs } from "pinia";
 	import { PhCaretCircleDoubleRight } from "phosphor-vue";
+
+	import { useQuizStore } from "@/store";
+
 	import BaseButton from "../Buttons/BaseButton.vue";
 
-	function handleNextCountry() {
-		console.log("Próximo país");
-	}
+	const store = useQuizStore();
+	const { remainingAttempts, isCorrect } = storeToRefs(store);
 </script>
 
 <template>
 	<div class="utils-quiz">
 		<h1 class="utils-quiz__attempts">
-			5{{ " " }}<span>Tentativas restantes</span>
+			{{ remainingAttempts + " " }}<span>Tentativas restantes</span>
 		</h1>
 		<BaseButton
 			type="button"
-			@click="handleNextCountry"
+			@click="() => store.nextChallenge()"
 			class="utils-quiz__next-button"
-			:class="{ disabled: 'utils-quiz__next-button--disabled' }"
+			:disabled="!isCorrect && remainingAttempts !== 0"
 		>
 			<template #base-button-icon>
 				<PhCaretCircleDoubleRight color="#f2f2f2" weight="regular" :size="28" />
@@ -43,9 +46,5 @@
 	}
 	.utils-quiz__next-button {
 		border-radius: 100%;
-	}
-	.utils-quiz__next-button--disabled {
-		opacity: 0.5;
-		pointer-events: none;
 	}
 </style>

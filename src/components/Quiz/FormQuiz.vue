@@ -1,14 +1,26 @@
 <script setup lang="ts">
-	import { ref } from "vue";
+	import { ref, computed } from "vue";
+	import { storeToRefs } from "pinia";
 
-	import BaseButton from "../Buttons/BaseButton.vue";
+	import { useQuizStore } from "@/store";
+
+	import BaseButton, { BaseButtonVariants } from "../Buttons/BaseButton.vue";
 	import BaseInput from "../BaseInput.vue";
 
 	const userAnswer = ref("");
+	const store = useQuizStore();
+	const { isCorrect, remainingAttempts, country } = storeToRefs(store);
 
-	function handleAnswerCheck() {
-		console.log(userAnswer.value);
-	}
+	const button = computed<{ text: string; variants: BaseButtonVariants }>(
+		() => {
+			if (isCorrect.value)
+				return { text: "Resposta Correta!", variants: "success" };
+			if (isCorrect.value === false)
+				return { text: "Resposta Incorreta!", variants: "error" };
+
+			return { text: "Verificar", variants: "default" };
+		}
+	);
 </script>
 
 <template>
@@ -17,12 +29,18 @@
 			Responder
 			<BaseInput v-model="userAnswer" placeholder="Digite a resposta..." />
 		</label>
+		{{
+			remainingAttempts === 0 && !isCorrect
+				? `A resposta é ${country!.translations.por.common}`
+				: null
+		}}
 		<BaseButton
 			type="submit"
-			@click.prevent="handleAnswerCheck"
+			@click.prevent="() => store.checkAnswer(userAnswer.trim())"
 			class="form-quiz__answer-check-button"
+			:variants="button.variants"
 		>
-			<template #base-button-text>Verificar</template>
+			<template #base-button-text>{{ button.text }}</template>
 		</BaseButton>
 	</form>
 </template>

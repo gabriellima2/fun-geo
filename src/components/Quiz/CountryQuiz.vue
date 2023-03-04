@@ -1,5 +1,8 @@
 <script setup lang="ts">
+	import { storeToRefs } from "pinia";
 	import { PhGlobeStand, PhHouse } from "phosphor-vue";
+
+	import { useQuizStore } from "@/store";
 
 	import BaseCard from "../BaseCard.vue";
 	import SubInfo from "../SubInfo.vue";
@@ -7,19 +10,21 @@
 	import type { TIconStyle } from "@/@types/TIcon";
 
 	const iconStyle: TIconStyle = { color: "#f2f2f2", weight: "bold", size: 24 };
+	const store = useQuizStore();
+	const { country } = storeToRefs(store);
 </script>
 
 <template>
-	<article class="country-quiz">
+	<article class="country-quiz" v-if="country">
 		<BaseCard variants="only-border" class="country-flag">
 			<img
 				class="country-flag__image"
-				:src="'https://flagcdn.com/w320/br.png'"
+				:src="country.flags.png"
 				:alt="'Bandeira do país que você deve adivinhar o nome'"
 			/>
 		</BaseCard>
 		<BaseCard variants="with-background" class="country-tips">
-			<SubInfo title="capital" :subtitle="'Brasília'">
+			<SubInfo title="capital" :subtitle="country.capital[0]">
 				<template #sub-info-icon
 					><PhHouse
 						:color="iconStyle.color"
@@ -28,7 +33,7 @@
 				/></template>
 			</SubInfo>
 
-			<SubInfo title="continente" :subtitle="'América do Sul'">
+			<SubInfo title="continente" :subtitle="country.continents[0]">
 				<template #sub-info-icon
 					><PhGlobeStand
 						:color="iconStyle.color"
