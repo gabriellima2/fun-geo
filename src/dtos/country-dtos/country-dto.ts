@@ -3,4 +3,6 @@ export interface CountryDTO {
 	translations: { por: { common: string } };
 	flags: { png: string; alt: string };
 	region: string;
+	capital: string[];
+	continents: string[];
 }

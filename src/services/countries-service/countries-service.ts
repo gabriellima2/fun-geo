@@ -1,6 +1,6 @@
 const BASE_URL = "https://restcountries.com/v3.1/";
 
-const FIELDS = "name,flags,region,translations";
+const FIELDS = "name,flags,region,translations,capital,continents";
 
 const EMPTY_PARAMETER_ERROR_MESSAGE = "Please, pass valid fields parameters!";
 
