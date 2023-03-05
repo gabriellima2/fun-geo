@@ -1,12 +1,9 @@
 <script setup lang="ts">
 	import type { ButtonHTMLAttributes } from "vue";
 
-	export type BaseButtonVariants = "default" | "success" | "error";
-
 	// eslint-disable-next-line @typescript-eslint/no-empty-interface
 	interface BaseButtonProps extends Omit<ButtonHTMLAttributes, "disabled"> {
 		disabled?: boolean;
-		variants?: BaseButtonVariants;
 	}
 	const props = defineProps<BaseButtonProps>();
 </script>
@@ -44,22 +41,6 @@
 	.base-button__disabled {
 		pointer-events: none;
 		opacity: 0.5;
-	}
-	button[variants="error"] {
-		pointer-events: none;
-		background-color: red;
-
-		&:hover {
-			background-color: red;
-		}
-	}
-	button[variants="success"] {
-		pointer-events: none;
-		background-color: green;
-
-		&:hover {
-			background-color: green;
-		}
 	}
 	.base-button__icon {
 		@include center(row);

@@ -1,26 +1,15 @@
 <script setup lang="ts">
-	import { ref, computed } from "vue";
+	import { ref } from "vue";
 	import { storeToRefs } from "pinia";
 
 	import { useQuizStore } from "@/store";
 
-	import BaseButton, { BaseButtonVariants } from "../Buttons/BaseButton.vue";
+	import BaseButton from "../Buttons/BaseButton.vue";
 	import BaseInput from "../BaseInput.vue";
 
 	const userAnswer = ref("");
 	const store = useQuizStore();
 	const { isCorrect, remainingAttempts, country } = storeToRefs(store);
-
-	const button = computed<{ text: string; variants: BaseButtonVariants }>(
-		() => {
-			if (isCorrect.value)
-				return { text: "Resposta Correta!", variants: "success" };
-			if (isCorrect.value === false)
-				return { text: "Resposta Incorreta!", variants: "error" };
-
-			return { text: "Verificar", variants: "default" };
-		}
-	);
 </script>
 
 <template>
@@ -38,9 +27,8 @@
 			type="submit"
 			@click.prevent="() => store.checkAnswer(userAnswer.trim())"
 			class="form-quiz__answer-check-button"
-			:variants="button.variants"
 		>
-			<template #base-button-text>{{ button.text }}</template>
+			<template #base-button-text>Verificar</template>
 		</BaseButton>
 	</form>
 </template>
