@@ -1,4 +1,4 @@
-import { onMounted, ref } from "vue";
+import { ref, watch } from "vue";
 import { defineStore, storeToRefs } from "pinia";
 
 import { useCountriesStore } from "./countries-store";
@@ -63,7 +63,8 @@ export const useQuizStore = defineStore("quiz", () => {
 		remainingAttempts.value -= 1;
 	}
 
-	onMounted(() => {
+	watch(countries.value, (_, newState) => {
+		if (newState.isLoading) return;
 		hydrateCountry();
 	});
 

@@ -1,26 +1,41 @@
 <script setup lang="ts">
+	import { storeToRefs } from "pinia";
+
+	import { useCountriesStore, useQuizStore } from "@/store";
+
 	import CountryQuiz from "@/components/Quiz/CountryQuiz.vue";
 	import UtilsQuiz from "@/components/Quiz/UtilsQuiz.vue";
+	import BaseLoading from "@/components/BaseLoading.vue";
 	import FormQuiz from "@/components/Quiz/FormQuiz.vue";
+	import BaseError from "@/components/BaseError.vue";
 	import PageTitle from "@/components/PageTitle.vue";
 
 	import DefaultLayout from "@/layouts/DefaultLayout.vue";
+
+	const quizStore = useQuizStore();
+	const countriesStore = useCountriesStore();
+	const { country } = storeToRefs(quizStore);
+	const { countries } = storeToRefs(countriesStore);
 </script>
 
 <template>
 	<DefaultLayout>
-		<PageTitle>Qual o nome desse país?</PageTitle>
-		<section class="challenge">
-			<div class="challenge-country">
-				<CountryQuiz />
-			</div>
-			<div class="challenge-answer">
-				<header>
-					<UtilsQuiz />
-				</header>
-				<FormQuiz />
-			</div>
-		</section>
+		<BaseLoading v-if="countries.isLoading" />
+		<BaseError v-else-if="countries.error" :message="countries.error" />
+		<div v-else-if="country">
+			<PageTitle>Qual o nome desse país?</PageTitle>
+			<section class="challenge">
+				<div class="challenge-country">
+					<CountryQuiz />
+				</div>
+				<div class="challenge-answer">
+					<header>
+						<UtilsQuiz />
+					</header>
+					<FormQuiz />
+				</div>
+			</section>
+		</div>
 	</DefaultLayout>
 </template>
 
