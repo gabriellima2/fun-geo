@@ -26,9 +26,13 @@ export const useQuizStore = defineStore("quiz", () => {
 		return !!countriesAlreadyShown.value[String(country.name.common)];
 	}
 
+	function clearIsCorrect() {
+		isCorrect.value = null;
+	}
+
 	function restart() {
 		remainingAttempts.value = REMAINING_ATTEMPTS;
-		isCorrect.value = null;
+		clearIsCorrect();
 	}
 
 	function hydrateCountry() {
@@ -74,5 +78,6 @@ export const useQuizStore = defineStore("quiz", () => {
 		remainingAttempts,
 		checkAnswer,
 		nextChallenge,
+		clearIsCorrect,
 	};
 });

@@ -1,28 +1,33 @@
 <script setup lang="ts">
-	import { ref } from "vue";
+	import { ref, watch } from "vue";
 	import { storeToRefs } from "pinia";
-
 	import { useQuizStore } from "@/store";
 
 	import BaseButton from "../Buttons/BaseButton.vue";
+	import QuizStatus from "./QuizStatus.vue";
 	import BaseInput from "../BaseInput.vue";
 
 	const userAnswer = ref("");
 	const store = useQuizStore();
-	const { isCorrect, remainingAttempts, country } = storeToRefs(store);
+	const { isCorrect, remainingAttempts } = storeToRefs(store);
+
+	watch(userAnswer, (_, newState) => {
+		if (!newState || isCorrect.value === null) return;
+		store.clearIsCorrect();
+	});
 </script>
 
 <template>
 	<form class="form-quiz">
 		<label class="form-quiz__label">
 			Responder
-			<BaseInput v-model="userAnswer" placeholder="Digite a resposta..." />
+			<BaseInput
+				v-model="userAnswer"
+				placeholder="Digite a resposta..."
+				:disabled="isCorrect === true || remainingAttempts === 0"
+			/>
 		</label>
-		{{
-			remainingAttempts === 0 && !isCorrect
-				? `A resposta é ${country!.translations.por.common}`
-				: null
-		}}
+		<QuizStatus />
 		<BaseButton
 			type="submit"
 			@click.prevent="() => store.checkAnswer(userAnswer.trim())"
