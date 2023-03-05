@@ -3,10 +3,10 @@
 
 	import { useCountriesStore, useQuizStore } from "@/store";
 
-	import CountryQuiz from "@/components/Quiz/CountryQuiz.vue";
-	import UtilsQuiz from "@/components/Quiz/UtilsQuiz.vue";
+	import QuizCountry from "@/components/Quiz/QuizCountry.vue";
+	import QuizUtils from "@/components/Quiz/QuizUtils.vue";
 	import BaseLoading from "@/components/BaseLoading.vue";
-	import FormQuiz from "@/components/Quiz/FormQuiz.vue";
+	import QuizForm from "@/components/Quiz/QuizForm.vue";
 	import BaseError from "@/components/BaseError.vue";
 	import PageTitle from "@/components/PageTitle.vue";
 
@@ -26,13 +26,13 @@
 			<PageTitle>Qual o nome desse país?</PageTitle>
 			<section class="challenge">
 				<div class="challenge-country">
-					<CountryQuiz />
+					<QuizCountry />
 				</div>
 				<div class="challenge-answer">
 					<header>
-						<UtilsQuiz />
+						<QuizUtils />
 					</header>
-					<FormQuiz />
+					<QuizForm />
 				</div>
 			</section>
 		</div>
