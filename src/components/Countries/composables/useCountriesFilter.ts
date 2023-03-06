@@ -3,7 +3,7 @@ import { reactive, ref } from "vue";
 import { usePush } from "@/composables/usePush";
 import type { OptionProps } from "@/components/BaseSelect.vue";
 
-type UseFilterCountriesReturn = {
+type UseCountriesFilterReturn = {
 	filter: {
 		value: string;
 		options: OptionProps[];
@@ -21,7 +21,7 @@ const filterByRegionOptions: OptionProps[] = [
 	{ text: "Oceania", value: "oceania" },
 ];
 
-export function useFilterCountries(): UseFilterCountriesReturn {
+export function useCountriesFilter(): UseCountriesFilterReturn {
 	const redirect = usePush();
 	const filterByRegionValue = ref("");
 

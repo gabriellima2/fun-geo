@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-	import { useFilterCountries } from "./composables/useFilterCountries";
+	import { useCountriesFilter } from "./composables/useCountriesFilter";
 
 	import CountriesOverviewList from "./CountriesOverviewList.vue";
 	import SearchBar from "@/components/SearchBar.vue";
@@ -17,7 +17,7 @@
 	};
 
 	const props = defineProps<CountriesOverviewProps>();
-	const { filter, handleSearch } = useFilterCountries();
+	const { filter, handleSearch } = useCountriesFilter();
 </script>
 
 <template>
