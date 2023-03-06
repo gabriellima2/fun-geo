@@ -47,4 +47,10 @@
 	.utils-quiz__next-button {
 		border-radius: 100%;
 	}
+
+	@media screen and (min-width: $lg-screen) {
+		.utils-quiz {
+			min-width: 467px;
+		}
+	}
 </style>

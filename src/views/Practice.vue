@@ -43,13 +43,14 @@
 	@import "../styles/scss/main";
 
 	.challenge {
-		@include center(row);
-		flex-wrap: wrap;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
 		gap: 40px;
 		padding-top: 48px;
 	}
 	.challenge-answer {
-		flex-grow: 1;
+		width: 100%;
 		display: flex;
 		flex-direction: column;
 		gap: 40px;
@@ -60,10 +61,15 @@
 
 	@media screen and (min-width: $md-screen) {
 		.challenge {
+			flex-wrap: wrap;
+			flex-direction: row;
 			justify-content: space-around;
+			align-items: center;
 		}
 		.challenge-answer {
 			flex-grow: 0.4;
+			width: auto;
+			max-width: 467px;
 		}
 		.challenge-country {
 			flex-grow: 0.2;

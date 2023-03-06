@@ -50,6 +50,7 @@
 
 	.country-quiz {
 		@include center(column);
+		max-width: 470px;
 	}
 	.country-flag {
 		@include center(row);
@@ -62,6 +63,7 @@
 	.country-flag__image {
 		width: 100%;
 		height: 100%;
+		min-height: 270px;
 		border-radius: 4px;
 	}
 	.country-tips {

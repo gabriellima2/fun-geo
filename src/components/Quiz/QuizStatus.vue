@@ -6,19 +6,34 @@
 
 	const store = useQuizStore();
 	const { isCorrect, remainingAttempts, country } = storeToRefs(store);
-	const phraseToTheCountryName = computed(() => {
-		return `O nome desse país é ${country?.value?.translations.por.common}`;
+
+	const phrase = computed(() => {
+		const countryName = country?.value?.translations.por.common;
+		if (isCorrect.value === false && remainingAttempts.value === 0)
+			return `O nome desse país é ${countryName}`;
+		if (isCorrect.value)
+			return `Resposta Correta! O nome desse país é ${countryName}`;
+		if (isCorrect.value === false) return "Resposta Incorreta";
+		return "";
 	});
 </script>
 
 <template>
-	<h2 role="alert" v-if="isCorrect">
-		Resposta Correta! {{ phraseToTheCountryName }}
-	</h2>
-	<h2 role="alert" v-if="isCorrect === false">Resposta Incorreta!</h2>
-	<h2 role="alert" v-if="isCorrect === false && remainingAttempts === 0">
-		{{ phraseToTheCountryName }}
+	<h2
+		role="alert"
+		v-if="isCorrect !== null"
+		class="quiz-status"
+		aria-atomic="true"
+		aria-live="polite"
+	>
+		{{ phrase }}
 	</h2>
 </template>
 
-<style scoped></style>
+<style scoped lang="scss">
+	.quiz-status {
+		font-size: 0.9rem;
+		font-weight: 400;
+		opacity: 0.9;
+	}
+</style>

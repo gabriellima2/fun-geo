@@ -1,5 +1,5 @@
 <script setup lang="ts">
-	import { ref, watch } from "vue";
+	import { ref, watch, computed } from "vue";
 	import { storeToRefs } from "pinia";
 	import { useQuizStore } from "@/store";
 
@@ -15,6 +15,10 @@
 		if (!newState || isCorrect.value === null) return;
 		store.clearIsCorrect();
 	});
+
+	const itsOver = computed(() => {
+		return isCorrect.value === true || remainingAttempts.value === 0;
+	});
 </script>
 
 <template>
@@ -24,12 +28,13 @@
 			<BaseInput
 				v-model="userAnswer"
 				placeholder="Digite a resposta..."
-				:disabled="isCorrect === true || remainingAttempts === 0"
+				:disabled="itsOver"
 			/>
 		</label>
 		<QuizStatus />
 		<BaseButton
 			type="submit"
+			:disabled="itsOver"
 			@click.prevent="() => store.checkAnswer(userAnswer.trim())"
 			class="form-quiz__answer-check-button"
 		>
