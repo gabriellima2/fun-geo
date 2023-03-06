@@ -12,12 +12,10 @@
 	const PREVIOUS_VARIANT_MESSAGE = "Ir para a página anterior";
 
 	const props = defineProps<NextPageButtonProps>();
-	const isNextVariant = computed(() => props.variant === "next");
+	const isNextVariant = props.variant === "next";
 	const titleMessage = computed(() => {
 		if (props.disabled) return "";
-		return isNextVariant.value
-			? NEXT_VARIANT_MESSAGE
-			: PREVIOUS_VARIANT_MESSAGE;
+		return isNextVariant ? NEXT_VARIANT_MESSAGE : PREVIOUS_VARIANT_MESSAGE;
 	});
 </script>
 

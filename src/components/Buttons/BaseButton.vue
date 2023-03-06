@@ -1,7 +1,6 @@
 <script setup lang="ts">
 	import type { ButtonHTMLAttributes } from "vue";
 
-	// eslint-disable-next-line @typescript-eslint/no-empty-interface
 	interface BaseButtonProps extends Omit<ButtonHTMLAttributes, "disabled"> {
 		disabled?: boolean;
 	}
