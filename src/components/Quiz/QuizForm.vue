@@ -1,6 +1,7 @@
 <script setup lang="ts">
-	import { ref, watch, computed } from "vue";
+	import { ref, watch } from "vue";
 	import { storeToRefs } from "pinia";
+
 	import { useQuizStore } from "@/store";
 
 	import BaseButton from "../Buttons/BaseButton.vue";
@@ -9,15 +10,11 @@
 
 	const userAnswer = ref("");
 	const store = useQuizStore();
-	const { isCorrect, remainingAttempts } = storeToRefs(store);
+	const { isCorrect, itsOver } = storeToRefs(store);
 
 	watch(userAnswer, (_, newState) => {
 		if (!newState || isCorrect.value === null) return;
 		store.clearIsCorrect();
-	});
-
-	const itsOver = computed(() => {
-		return isCorrect.value === true || remainingAttempts.value === 0;
 	});
 </script>
 

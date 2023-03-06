@@ -5,11 +5,11 @@
 	import { useQuizStore } from "@/store";
 
 	const store = useQuizStore();
-	const { isCorrect, remainingAttempts, country } = storeToRefs(store);
+	const { isCorrect, country, attemptsAreOver } = storeToRefs(store);
 
 	const phrase = computed(() => {
 		const countryName = country?.value?.translations.por.common;
-		if (isCorrect.value === false && remainingAttempts.value === 0)
+		if (isCorrect.value === false && attemptsAreOver.value)
 			return `O nome desse país é ${countryName}`;
 		if (isCorrect.value)
 			return `Resposta Correta! O nome desse país é ${countryName}`;

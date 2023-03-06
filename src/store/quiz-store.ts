@@ -1,4 +1,4 @@
-import { onMounted, ref, watch } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 import { defineStore, storeToRefs } from "pinia";
 
 import { useCountriesStore } from "./countries-store";
@@ -20,6 +20,11 @@ export const useQuizStore = defineStore("quiz", () => {
 	const remainingAttempts = ref(REMAINING_ATTEMPTS);
 	const countriesAlreadyShown = ref<CountriesAlreadyShown | null>(null);
 	const country = ref<CountryDTO | null>(null);
+
+	const attemptsAreOver = computed(() => remainingAttempts.value === 0);
+	const itsOver = computed(() => {
+		return isCorrect.value === true || attemptsAreOver.value;
+	});
 
 	function isRepeated(country: CountryDTO) {
 		if (!countriesAlreadyShown.value) return false;
@@ -83,5 +88,7 @@ export const useQuizStore = defineStore("quiz", () => {
 		checkAnswer,
 		nextChallenge,
 		clearIsCorrect,
+		attemptsAreOver,
+		itsOver,
 	};
 });
