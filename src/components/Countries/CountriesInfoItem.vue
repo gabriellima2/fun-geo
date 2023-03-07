@@ -123,6 +123,8 @@
 		@include center(row);
 		height: 100%;
 		padding: 12px;
+		border-top-left-radius: 10px;
+		border-top-right-radius: 10px;
 	}
 	.country-info-header__image {
 		width: 100%;
@@ -131,8 +133,9 @@
 		border-radius: 8px;
 	}
 	.country-info-body {
-		flex: 1;
 		padding: 16px;
+		border-bottom-left-radius: 10px;
+		border-bottom-right-radius: 10px;
 	}
 	.country-info-overview {
 		width: 100%;
@@ -164,6 +167,16 @@
 		}
 		.country-info {
 			flex-direction: row;
+		}
+		.country-info-header {
+			border-radius: 0px;
+			border-top-left-radius: 10px;
+			border-bottom-left-radius: 10px;
+		}
+		.country-info-body {
+			border-radius: 0px;
+			border-top-right-radius: 10px;
+			border-bottom-right-radius: 10px;
 		}
 	}
 </style>
