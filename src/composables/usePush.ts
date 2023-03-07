@@ -1,14 +1,21 @@
-import { type RouteLocationRaw, useRouter } from "vue-router";
+import { watch } from "vue";
+import { useRoute, useRouter, type RouteLocationPathRaw } from "vue-router";
 
-type UsePushReturn = (to: RouteLocationRaw) => void;
+import { useReloadRouterView } from "@/store";
+
+type UsePushReturn = (to: RouteLocationPathRaw) => void;
 
 export function usePush(): UsePushReturn {
 	const router = useRouter();
+	const route = useRoute();
+	const store = useReloadRouterView();
 
-	const redirect = (to: RouteLocationRaw) => {
-		router.push(to);
-		window.location.reload();
-	};
+	const redirect = (to: RouteLocationPathRaw) => router.replace(to);
+
+	watch(route, (to, from) => {
+		if (!from.query.q && !to.query.q) return;
+		store.reload();
+	});
 
 	return redirect;
 }
