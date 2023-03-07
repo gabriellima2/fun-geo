@@ -1,21 +1,12 @@
 <script setup lang="ts">
-	import { computed } from "vue";
 	import { storeToRefs } from "pinia";
 
+	import { useQuizStatus } from "./composables/useQuizStatus";
 	import { useQuizStore } from "@/store";
 
 	const store = useQuizStore();
-	const { isCorrect, country, attemptsAreOver } = storeToRefs(store);
-
-	const phrase = computed(() => {
-		const countryName = country?.value?.translations.por.common;
-		if (isCorrect.value === false && attemptsAreOver.value)
-			return `O nome desse país é ${countryName}`;
-		if (isCorrect.value)
-			return `Resposta Correta! O nome desse país é ${countryName}`;
-		if (isCorrect.value === false) return "Resposta Incorreta";
-		return "";
-	});
+	const { isCorrect } = storeToRefs(store);
+	const { status } = useQuizStatus();
 </script>
 
 <template>
@@ -23,17 +14,33 @@
 		role="alert"
 		v-if="isCorrect !== null"
 		class="quiz-status"
+		:class="{
+			'quiz-status--incorrect': status.variants === 'incorrect',
+			'quiz-status--correct': status.variants === 'correct',
+			'quiz-status--failed': status.variants === 'failed',
+		}"
 		aria-atomic="true"
 		aria-live="polite"
 	>
-		{{ phrase }}
+		{{ status.message }}
 	</h2>
 </template>
 
 <style scoped lang="scss">
+	@import "../../styles/scss/variables";
+
 	.quiz-status {
 		font-size: 0.9rem;
 		font-weight: 400;
 		opacity: 0.9;
+	}
+	.quiz-status--incorrect {
+		color: $error-color;
+	}
+	.quiz-status--correct {
+		color: $success-color;
+	}
+	.quiz-status--failed {
+		color: $attention-color;
 	}
 </style>
