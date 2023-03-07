@@ -4,7 +4,7 @@ import { defineStore } from "pinia";
 import { localStorageService } from "@/services/local-storage-service/local-storage-service";
 import { countriesService } from "@/services/countries-service";
 
-import type { IFavoriteCountriesKey } from "@/interfaces/IFavoriteCountriesKey";
+import type { IFavoriteCountriesKeys } from "@/interfaces/IFavoriteCountriesKeys";
 import type { CountryDTO } from "@/dtos/country-dtos";
 
 type Countries = {
@@ -12,8 +12,6 @@ type Countries = {
 	error: string | null;
 	data: CountryDTO[] | null;
 };
-
-type FavoriteCountriesKeys = IFavoriteCountriesKey[];
 
 const FAVORITE_COUNTRIES_KEY = "favorite-countries";
 
@@ -23,7 +21,7 @@ export const useCountriesStore = defineStore("countries", () => {
 		error: null,
 		data: null,
 	});
-	const favoriteCountriesKeys = ref<FavoriteCountriesKeys>([]);
+	const favoriteCountriesKeys = ref<IFavoriteCountriesKeys | null>(null);
 
 	function hydrateCountries() {
 		countriesService
@@ -35,50 +33,52 @@ export const useCountriesStore = defineStore("countries", () => {
 
 	function hydrateFavoriteCountriesKeys() {
 		const storedFavoriteCountries =
-			localStorageService.get<FavoriteCountriesKeys>({
+			localStorageService.get<IFavoriteCountriesKeys>({
 				key: FAVORITE_COUNTRIES_KEY,
 			});
-		favoriteCountriesKeys.value = storedFavoriteCountries || [];
+		favoriteCountriesKeys.value = storedFavoriteCountries || null;
 	}
 
 	function isFavorite(id: string) {
-		const formattedID = id.toLocaleLowerCase();
-		return favoriteCountriesKeys.value.some(
-			(value) => value.id === formattedID
-		);
+		if (!favoriteCountriesKeys.value) return false;
+		return !!favoriteCountriesKeys.value[id.toLowerCase()];
 	}
 
 	function setFavoriteCountry(countryName: string) {
 		if (isFavorite(countryName)) return;
+
+		const countryNameFormatted = countryName.toLocaleLowerCase().trim();
 		localStorageService.set({
 			key: FAVORITE_COUNTRIES_KEY,
-			value: [
+			value: {
 				...favoriteCountriesKeys.value,
-				{ id: countryName.toLocaleLowerCase() },
-			],
+				[String(countryNameFormatted)]: countryNameFormatted,
+			},
 		});
 		hydrateFavoriteCountriesKeys();
 	}
 
 	function removeFavoriteCountry(id: string) {
-		const formattedID = id.toLocaleLowerCase();
+		if (!favoriteCountriesKeys.value) return;
+		delete favoriteCountriesKeys.value[id.toLowerCase()];
+
 		localStorageService.set({
 			key: FAVORITE_COUNTRIES_KEY,
-			value: favoriteCountriesKeys.value.filter(
-				(country) => country.id !== formattedID
-			),
+			value: favoriteCountriesKeys.value,
 		});
 		hydrateFavoriteCountriesKeys();
 	}
 
 	const favoriteCountries = computed(() => {
-		if (!countries.data) return [];
-		return favoriteCountriesKeys.value.reduce<CountryDTO[]>((acc, favorite) => {
-			const favoriteCountryData = countries.data!.find(
-				(country) => country.name.common.toLowerCase() === favorite.id
+		if (!countries.data || !favoriteCountriesKeys.value) return [];
+		const keys = Object.keys(favoriteCountriesKeys.value);
+
+		return keys.reduce<CountryDTO[]>((acc, key) => {
+			const data = countries.data!.find(
+				(country) => country.name.common.toLowerCase() === key
 			);
-			if (!favoriteCountryData) return acc;
-			return [...acc, favoriteCountryData];
+			if (!data) return acc;
+			return [...acc, data];
 		}, []);
 	});
 
