@@ -1,5 +1,5 @@
 <script setup lang="ts">
-	import { ref, watch } from "vue";
+	import { watch } from "vue";
 	import { storeToRefs } from "pinia";
 
 	import { useQuizStore } from "@/store";
@@ -8,9 +8,8 @@
 	import QuizStatus from "./QuizStatus.vue";
 	import BaseInput from "../BaseInput.vue";
 
-	const userAnswer = ref("");
 	const store = useQuizStore();
-	const { isCorrect, itsOver } = storeToRefs(store);
+	const { isCorrect, itsOver, userAnswer } = storeToRefs(store);
 
 	watch(userAnswer, (_, newState) => {
 		if (!newState || isCorrect.value === null) return;

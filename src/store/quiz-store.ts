@@ -16,6 +16,7 @@ export const useQuizStore = defineStore("quiz", () => {
 	const store = useCountriesStore();
 	const { countries } = storeToRefs(store);
 
+	const userAnswer = ref("");
 	const isCorrect = ref<boolean | null>(null);
 	const remainingAttempts = ref(REMAINING_ATTEMPTS);
 	const countriesAlreadyShown = ref<CountriesAlreadyShown | null>(null);
@@ -37,6 +38,7 @@ export const useQuizStore = defineStore("quiz", () => {
 
 	function restart() {
 		remainingAttempts.value = REMAINING_ATTEMPTS;
+		userAnswer.value = "";
 		clearIsCorrect();
 	}
 
@@ -84,6 +86,7 @@ export const useQuizStore = defineStore("quiz", () => {
 	return {
 		country,
 		isCorrect,
+		userAnswer,
 		remainingAttempts,
 		checkAnswer,
 		nextChallenge,
