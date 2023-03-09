@@ -3,7 +3,7 @@
 
 	import { usePagination } from "@/composables/usePagination";
 
-	import CountriesOverviewListItem from "./CountriesOverviewListItem.vue";
+	import CountriesOverviewListItem from "./components/CountriesOverviewListItem.vue";
 	import PaginationButton from "../Buttons/PaginationButton.vue";
 
 	import { convertIntoTwoDimensionalArray } from "@/functions/convert-into-two-dimensional-array";

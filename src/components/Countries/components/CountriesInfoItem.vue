@@ -8,11 +8,11 @@
 		PhUsersThree,
 	} from "phosphor-vue";
 
-	import { useFavoriteCountries } from "./composables/useFavoriteCountries";
+	import { useFavoriteCountries } from "../composables/useFavoriteCountries";
 
-	import FavoriteButton from "../Buttons/FavoriteButton.vue";
-	import BaseCard from "../BaseCard.vue";
-	import SubInfo from "../SubInfo.vue";
+	import FavoriteButton from "@/components/Buttons/FavoriteButton.vue";
+	import BaseCard from "@/components/BaseCard.vue";
+	import SubInfo from "@/components/SubInfo.vue";
 
 	import type { ICurrencies } from "@/interfaces/ICurrencies";
 	import type { TIconStyle } from "@/@types/TIcon";
@@ -112,7 +112,7 @@
 </template>
 
 <style scoped lang="scss">
-	@import "../../styles/scss/main";
+	@import "../../../styles/scss/main";
 
 	.country-info {
 		display: flex;

@@ -4,8 +4,8 @@
 
 	import { useQuizStore } from "@/store";
 
+	import QuizStatus from "./components/QuizStatus.vue";
 	import BaseButton from "../Buttons/BaseButton.vue";
-	import QuizStatus from "./QuizStatus.vue";
 	import BaseInput from "../BaseInput.vue";
 
 	const store = useQuizStore();

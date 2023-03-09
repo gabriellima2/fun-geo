@@ -1,8 +1,8 @@
 <script setup lang="ts">
-	import { useFavoriteCountries } from "./composables/useFavoriteCountries";
+	import { useFavoriteCountries } from "../composables/useFavoriteCountries";
 
-	import FavoriteButton from "../Buttons/FavoriteButton.vue";
-	import BaseCard from "../BaseCard.vue";
+	import FavoriteButton from "@/components/Buttons/FavoriteButton.vue";
+	import BaseCard from "@/components/BaseCard.vue";
 
 	type CountriesOverviewListItemProps = {
 		id: string;
@@ -41,7 +41,7 @@
 </template>
 
 <style scoped lang="scss">
-	@import "../../styles/scss/main";
+	@import "../../../styles/scss/main";
 
 	$border-default-style: 1px solid #242424;
 	$border-radius: 8px;

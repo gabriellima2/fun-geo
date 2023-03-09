@@ -1,7 +1,7 @@
 <script setup lang="ts">
 	import { useFetch } from "@/composables/useFetch";
 
-	import CountriesInfoItem from "./CountriesInfoItem.vue";
+	import CountriesInfoItem from "./components/CountriesInfoItem.vue";
 	import BaseLoading from "../BaseLoading.vue";
 	import BaseError from "../BaseError.vue";
 

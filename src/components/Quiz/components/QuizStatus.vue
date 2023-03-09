@@ -1,7 +1,7 @@
 <script setup lang="ts">
 	import { storeToRefs } from "pinia";
 
-	import { useQuizStatus } from "./composables/useQuizStatus";
+	import { useQuizStatus } from "../composables/useQuizStatus";
 	import { useQuizStore } from "@/store";
 
 	const store = useQuizStore();
@@ -27,7 +27,7 @@
 </template>
 
 <style scoped lang="scss">
-	@import "../../styles/scss/variables";
+	@import "../../../styles/scss/variables";
 
 	.quiz-status {
 		font-size: 0.9rem;
