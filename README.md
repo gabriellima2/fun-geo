@@ -1,18 +1,55 @@
-# Vue 3 + TypeScript + Vite
+<h1 align="center">
+    <img alt="FunMath! logo" src="./public/docs/logo-github.svg" />
+    <br>
+    FunGeo! Website para brincar e aprender Geografia.
+</h1>
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+O usuário pode explorar, favoritar e ser desafiado com os países do mundo. Para uma melhor navegação possui filtros, barra de pesquisa e paginação.
 
-## Recommended IDE Setup
+Os favoritos são salvos e persistidos no armazenamento local do dispositivo, então quando sair vai manter esses dados salvos.
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+Também, possui uma sessão de desafio. O algoritmo vai escolher um país aleatório, sem repetir, e o usuário terá que descobrir o nome desse país, baseando-se
+em informações disponíveis como: Capital, bandeira e região. O usuário tem 5 tentativas antes do desafio falhar. Por fim, é mostrado o status daquele desafio
+e o país selecionado atualmente vai para uma lista de países que já foram escolhidos.
 
-## Type Support For `.vue` Imports in TS
+<h2>Tecnologias:</h2>
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+- [VueJS](https://br.vuejs.org/)
+- [Typescript](https://www.typescriptlang.org/)
+- [Vue Router](https://router.vuejs.org/)
+- [Pinia](https://pinia.vuejs.org/)
+- [SASS/SCSS](https://sass-lang.com/)
+- [Phosphor Icons](https://phosphoricons.com/)
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+<h2>Dificuldades:</h2>
 
-1. Disable the built-in TypeScript Extension
-   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+- Passei um sufoco para atualizar a tela de resultados de pesquisa quando a query da URL mudasse. Tive que usar o :key disponível pelo Vue para forçar uma nova renderização.
+- A API não possui paginação e estava renderizando muitos elementos diretamente no documento. Com certeza, iria travar em algum dispositivo mais fraco. Então,
+tive a idéia de usar uma Virtual Scroll List ou fazer uma paginação direto no front. Por fim, tive que optar pela paginação, pois a outra opção não funcionou.
+
+<h2>Prototipagem:</h2>
+
+<div align="center">
+  <img src="./public/docs/figma.png" alt="demonstração do protótipo do projeto" >
+</div>
+
+<h4 align="center">Feito com <a href="https://www.figma.com/" target="_blank" rel="noreferrer">Figma</a></h4>
+
+<h2>Rodando o projeto:</h2>
+
+Você precisa ter o [Node](https://nodejs.org/en/), o [Git](https://git-scm.com/) e algum gerenciador de pacotes([NPM](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm/) | [Yarn](https://classic.yarnpkg.com/lang/en/docs/install)) instalados em sua máquina.
+
+```bash
+1. Clone o repositório:
+$ git clone https://github.com/gabriellima2/fun-geo.git
+
+2. Acesse a pasta e instale as dependências via terminal:
+$ yarn || npm i
+
+3. Inicie a aplicação em modo de desenvolvimento:
+$ yarn dev || npm run dev
+
+4. O servidor será aberto em http://localhost:5173
+```
+
+<p align="center">Projeto feito com 💙 por <a href="https://www.linkedin.com/in/gabriel-lima-860612236">Gabriel Lima</a></p>
