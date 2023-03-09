@@ -1,5 +1,5 @@
 import { type Ref, ref } from "vue";
-import { scrollToTop } from "@/utils/scroll-to-top";
+import { scrollToTop } from "@/functions/scroll-to-top";
 
 type UsePaginationParams<T> = {
 	pageLimit: number;

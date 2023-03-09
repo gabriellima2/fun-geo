@@ -1,5 +1,5 @@
 <script setup lang="ts">
-	import { HTMLAttributes } from "vue";
+	import type { HTMLAttributes } from "vue";
 
 	interface BaseCardProps extends HTMLAttributes {
 		variants: "with-background" | "only-border";

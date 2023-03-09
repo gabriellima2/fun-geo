@@ -1,5 +1,5 @@
 import { onMounted, onUnmounted, ref } from "vue";
-import { handleKeyboardNavigationModal } from "../../../functions/handle-keyboard-navigation-modal";
+import { handleKeyboardNavigationModal } from "@/functions/handle-keyboard-navigation-modal";
 
 type UseNavigationParams = {
 	rootElementID: string;

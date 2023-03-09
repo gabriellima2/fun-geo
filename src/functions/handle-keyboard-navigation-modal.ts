@@ -1,4 +1,4 @@
-import { changeFocusEl } from "../utils/change-focus-el";
+import { changeFocusEl } from "./change-focus-el";
 
 type HandleKeyboardNavigationModalConfigParams = {
 	querySelectorRootEl: string;
