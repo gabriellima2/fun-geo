@@ -12,6 +12,25 @@ Também, possui uma sessão de desafio. O algoritmo vai escolher um país aleat�
 em informações disponíveis como: Capital, bandeira e região. O usuário tem 5 tentativas antes do desafio falhar. Por fim, é mostrado o status daquele desafio
 e o país selecionado atualmente vai para uma lista de países que já foram escolhidos.
 
+<h2>Estrutura</h2>
+
+```bash
+--- src/
+	-- @types: Tipagens de terceiros.
+	-- components: Componentes da aplicação. Podem possuir sub-diretórios.
+	-- composables: Hooks para reaproveitação de lógica.
+	-- dtos: Modelagem dos dados retornados da API.
+	-- functions: Funções reaproveitáveis e para uso especifíco.
+	-- interfaces: Modelagem/Tipagem de dados em geral.
+	-- layouts: Layouts da aplicação.
+	-- router: Configurações e definições de rotas.
+	-- services: Utilitários para uso de serviços externos.
+	-- store: Mantém a definição dos estados globais.
+	-- styles: Definição de estilos globais e utilitários SASS.
+	-- views: Páginas da aplicação.
+```
+
+
 <h2>Tecnologias:</h2>
 
 - [VueJS](https://br.vuejs.org/)
