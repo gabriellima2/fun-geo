@@ -69,11 +69,13 @@
 	.country-header {
 		@include center(row);
 		padding: 8px;
+		border-top-left-radius: 6px;
+		border-bottom-left-radius: 6px;
 	}
 	.country-header__image {
 		width: 110px;
 		height: 74px;
-		border-radius: 6px;
+		border-radius: 4px;
 	}
 	.country-info {
 		display: flex;
@@ -81,6 +83,8 @@
 		align-items: flex-start;
 		flex: 1;
 		padding: 8px;
+		border-top-right-radius: 6px;
+		border-bottom-right-radius: 6px;
 	}
 	.texts {
 		@include center(column);
