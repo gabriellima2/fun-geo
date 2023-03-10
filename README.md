@@ -4,6 +4,15 @@
     FunGeo! Website para brincar e aprender Geografia.
 </h1>
 
+
+<div align="center">
+  <img src="./public/docs/preview.png" alt="demonstração do projeto" >
+</div>
+
+<p align="center"><a href="https://fun-geo.vercel.app/">Ver Projeto</a></p>
+
+<h2>Sobre</h2>
+
 O usuário pode explorar, favoritar e ser desafiado com os países do mundo. Para uma melhor navegação possui filtros, barra de pesquisa e paginação.
 
 Os favoritos são salvos e persistidos no armazenamento local do dispositivo, então quando sair vai manter esses dados salvos.
